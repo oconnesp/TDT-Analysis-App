@@ -11,7 +11,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from scipy.optimize import curve_fit
+from scipy.optimize import minimize
 from scipy.stats import norm
 
 
@@ -26,12 +26,20 @@ def extract_trials(csv_path: str, no_trials: int):
         resp_col = df.columns[t * 2 + 1]   # 1, 3, 5, …
 
         # Keep only numeric data, drop NaNs (headers, “TDT”, etc.)
+    # take the two columns, but skip row 0
         pair = (
-            df[[isi_col, resp_col]]                     # take the two columns together
-            .apply(pd.to_numeric, errors="coerce")    # make them numeric
-            .dropna()                                 # drop rows where **either** is NaN
+        df.loc[1:, [isi_col, resp_col]]     # ← here!
+          .apply(pd.to_numeric, errors="coerce")
         )
-        isi  = pair[isi_col].to_numpy(float) * 1000 #ms
+
+        # find first NaN and slice up to it
+        null_mask = pair.isna().any(axis=1).to_numpy()
+        if null_mask.any():
+            stop_idx = int(null_mask.argmax())
+            pair = pair.iloc[:stop_idx]
+
+    # convert & scale
+        isi  = pair[isi_col].to_numpy(float) * 1000
         resp = pair[resp_col].round().astype(int).to_numpy()
 
 
@@ -59,15 +67,16 @@ def extract_trials(csv_path: str, no_trials: int):
     for n in range (no_trials): 
         for i in range (len(isi_list[n])):
             idx = np.searchsorted(all_isis, isi_list[n][i])
-            summed_resps [idx] += resp_list[n][i]
-            resp_counter[idx] += 1
+            summed_resps [idx] += resp_list[n][i] #k_i
+            resp_counter[idx] += 1 #n_i
         
-        ## Average them
+        ## Average them to find avg responses
     for j in range (length):
         avg_resps [j] = summed_resps[j]/resp_counter[j]
         
+        #Create an array for ISIs, an array for 
 
-    return all_isis, avg_resps
+    return all_isis, avg_resps, summed_resps, resp_counter, TDT
 
 
 ### now have all_isis and their avg_resps
@@ -75,21 +84,44 @@ def extract_trials(csv_path: str, no_trials: int):
 
 ### next, fit to a cumulative Gaussian ###
 
+
+##define negative log likelihood function
+
+def neg_log_likelihood(params, k, n, ISIs):#k is #different's per ISI, n is no trials per ISI
+    mu, sigma = params
+    if sigma <=0:
+        return np.inf
+    p = norm.cdf (ISIs, mu, sigma)
+    eps = 1e-9
+    p = np.clip (p, eps, 1-eps) #prevent log0
+
+    #binomial log-likelihood
+    ll = k*np.log (p) + (n-k)*np.log (1-p)
+    return -np.sum(ll)
+
+
 #Initial Guesses
-def Fit_to_Gaussian (all_isis,avg_resps):
-    mu_guess = np.median (all_isis)
-    sigma_guess = (np.max(all_isis) - np.min(all_isis))/4
-    p0 = [mu_guess, sigma_guess]
+def Fit_to_Gaussian (ISIs, n, k, TDT):
+    mu_guess = TDT
+    sigma_guess = 0.1*np.ptp(ISIs)
 
     #bounds
-    bounds = ([0, 1e-6], [np.max(all_isis), np.inf])
+    bounds = ([0, np.max(ISIs)], [1e-6, np.inf])
 
-    popt, pcov = curve_fit (norm.cdf, all_isis, avg_resps, p0 =p0, bounds = bounds)
+    result = minimize(
+        neg_log_likelihood,
+        x0=[mu_guess, sigma_guess],
+        args=(k, n, ISIs),
+        bounds=bounds,
+        method="L-BFGS-B"
+    )
+    mu_hat, sigma_hat  = result.x
+    return mu_hat, sigma_hat
 
-    mu_fitted, sigma_fitted = popt
 
+def plot_curve(all_isis, avg_resps, sigma_fitted, mu_fitted):
     x_fitted = np.linspace (0, np.max(all_isis), 300)
-    y_fitted = norm.cdf (x_fitted,mu_fitted,sigma_fitted)
+    y_fitted = norm.cdf (x_fitted,loc=mu_fitted, scale =sigma_fitted)
 
     plt.figure()
     plt.scatter (all_isis, avg_resps, label = 'data', marker = 'o', color = 'blue')
@@ -98,4 +130,6 @@ def Fit_to_Gaussian (all_isis,avg_resps):
     plt.xlabel ("Time (ms)")
     plt.ylabel ("Proportion of \"Different\" Responses")
     plt.show()
-    return (popt)
+    return
+
+

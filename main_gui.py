@@ -1,5 +1,4 @@
-from tdt_fitting import extract_trials, Fit_to_Gaussian
-
+import tdt_fitting as fit
 import numpy as np
 import pandas as pd
 from scipy.optimize import curve_fit
@@ -10,14 +9,16 @@ import matplotlib.pyplot as plt
 csv_path = r"C:\Users\OCONNESP\OneDrive - Trinity College Dublin\College\College\Year 3\Reilly Lab\TDT Analysis App\EXAMPLE_24_06_2024.csv"
 no_trials = 4 #TODO find no_trials
 # Extract files and find the average responses
-ISIs, avg_resps = extract_trials(csv_path, no_trials)
+all_isis, avg_resps, summed_resps, resp_counter, TDT = fit.extract_trials(csv_path, no_trials)
 
 # Print the result
-print("ISI (ms):", ISIs)
+print("ISI (ms):", all_isis)
 print("Mean Response:", avg_resps)
 ## get the fitted cumulative gaussian curve 
-mu_fitted, sigma_fitted = Fit_to_Gaussian(ISIs, avg_resps)
+
+mu_hat, sigma_hat = fit.Fit_to_Gaussian (all_isis, resp_counter, summed_resps, TDT)
 
 
+fit.plot_curve(all_isis, avg_resps, sigma_hat, mu_hat)
 
 
