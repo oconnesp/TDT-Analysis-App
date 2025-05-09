@@ -14,16 +14,21 @@ isi_list, resp_list, all_isis = fit.extract_trials(csv_path, no_trials)
 avg_resps, summed_resps, resp_counter, TDT = fit.analyse_TDTs(isi_list, resp_list, all_isis, no_trials)
 
 # Print the result
+print (f"Subject's TDT: {TDT:.2f}")
 #print("ISI (ms):", all_isis)
 #print("Mean Response:", avg_resps)
 ## get the fitted cumulative gaussian curve 
 
 mu_hat, sigma_hat = fit.Fit_to_Gaussian (all_isis, resp_counter, summed_resps, TDT)
 
-
+plt.figure()
 fit.plot_curve(all_isis, avg_resps, sigma_hat, mu_hat)
+plt.show()
 
 
 bootstrapped_results = fit.bootstrap(mu_hat, sigma_hat, all_isis, no_bootstraps, no_trials)
 column_means = bootstrapped_results.mean()
 print (column_means)
+plt.figure()
+fit.plot_with_bootstraps (bootstrapped_results, mu_hat, sigma_hat, all_isis, avg_resps)
+plt.show()
