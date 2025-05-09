@@ -13,7 +13,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.optimize import minimize
 from scipy.stats import norm
-
+from scikits.bootstrap import bootstrap as bootci
 
 def extract_trials(csv_path: str, no_trials: int):
     df = pd.read_csv(csv_path)
@@ -160,8 +160,10 @@ def bootstrap (mu, sigma, ISIs, no_bootstraps, no_trials ):
     return pd.DataFrame(bootstrap_rows)
 
 
-def plot_with_bootstraps (bootstrapped_results, mu_hat, sigma_hat, ISIs, avg_resps):
+def plot_with_bootstraps (bootstrapped_results, mu_hat, sigma_hat, ISIs, avg_resps):#returns CI intervals
     for i in range (len(bootstrapped_results)):
         plot_one_bootstrap (bootstrapped_results.iloc[i]["PSE"], bootstrapped_results.iloc[i]["JND"], ISIs)
     plot_curve (ISIs, avg_resps, sigma_hat, mu_hat)
-    return
+    return 
+
+

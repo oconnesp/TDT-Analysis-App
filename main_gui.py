@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
+import scikits.bootstrap as bootci
 # "C:\Users\OCONNESP\OneDrive - Trinity College Dublin\College\College\Year 3\Reilly Lab\TDT Analysis App\EXAMPLE_24_06_2024.csv"
 #"C:\Users\spenc\OneDrive - Trinity College Dublin\College\College\Year 3\Reilly Lab\TDT Analysis App\EXAMPLE_24_06_2024.csv"
 #Test 
@@ -32,3 +33,12 @@ print (column_means)
 plt.figure()
 fit.plot_with_bootstraps (bootstrapped_results, mu_hat, sigma_hat, all_isis, avg_resps)
 plt.show()
+
+ci_mu = bootci.ci(data=bootstrapped_results["PSE"].values, statfunction=np.mean, method='bca')
+ci_sigma = bootci.ci(data=bootstrapped_results["JND"].values, statfunction=np.mean, method='bca')
+ci_TDT = bootci.ci(data=bootstrapped_results["TDT"].values, statfunction=np.mean, method='bca')
+
+# Combine into an array
+ci_array = np.array([ci_mu, ci_sigma, ci_TDT])
+
+print("95% confidence intervals (rows: PSE, JND, TDT):\n", np.round(ci_array, 2))
