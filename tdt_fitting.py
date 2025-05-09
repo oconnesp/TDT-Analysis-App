@@ -64,7 +64,7 @@ def analyse_TDTs (isi_list, resp_list, all_isis, no_trials ):
                 break
     
     TDT = np.median(threshold_values)
-    print (f"TDT = {TDT:.2f}")
+    #print (f"TDT = {TDT:.2f}")
         ### Take each response and add it into an array with indeces corresponding to each ISI
     for n in range (no_trials): 
         for i in range (len(isi_list[n])):
@@ -124,16 +124,18 @@ def Fit_to_Gaussian (ISIs, n, k, TDT):
 def plot_curve(all_isis, avg_resps, sigma_fitted, mu_fitted):
     x_fitted = np.linspace (0, np.max(all_isis), 300)
     y_fitted = norm.cdf (x_fitted,loc=mu_fitted, scale =sigma_fitted)
-
-    plt.figure()
-    plt.scatter (all_isis, avg_resps, label = 'data', marker = 'o', color = 'blue')
-    plt.plot (x_fitted, y_fitted, label = 'fit', color = 'red', linestyle = '--', lw = 2.0)
+    plt.plot (x_fitted, y_fitted, label = 'fit', color = 'black', lw = 2.0)
     plt.text (70, 0.7, f"PSE: {mu_fitted :.2f}ms\n JND: {sigma_fitted :.2f}ms")
+    plt.scatter (all_isis, avg_resps, label = 'data', marker = 'o', color = 'blue', zorder = 3)
     plt.xlabel ("Time (ms)")
     plt.ylabel ("Proportion of \"Different\" Responses")
-    plt.show()
     return
 
+def plot_one_bootstrap(mu_hat, sigma_hat, ISIs):
+    x_fitted = np.linspace (0, np.max(ISIs), 300)
+    y_fitted = norm.cdf (x_fitted,loc=mu_hat, scale =sigma_hat)
+    plt.plot(x_fitted, y_fitted, color='lightgrey', linewidth=1)
+    return
 
 def bootstrap (mu, sigma, ISIs, no_bootstraps, no_trials ):
     no_ISIs = len(ISIs)
@@ -153,7 +155,13 @@ def bootstrap (mu, sigma, ISIs, no_bootstraps, no_trials ):
 
         avg_resps, summed_resps, resp_counter, TDT = analyse_TDTs (ISI_list, resp_list, ISIs, no_trials)
         mu_sim, sigma_sim = Fit_to_Gaussian (ISIs, resp_counter, summed_resps, TDT)
-        bootstrap_rows.append({"mu": mu_sim, "sigma": sigma_sim, "TDT": TDT})
+        bootstrap_rows.append({"PSE": mu_sim, "JND": sigma_sim, "TDT": TDT})
 
     return pd.DataFrame(bootstrap_rows)
 
+
+def plot_with_bootstraps (bootstrapped_results, mu_hat, sigma_hat, ISIs, avg_resps):
+    for i in range (len(bootstrapped_results)):
+        plot_one_bootstrap (bootstrapped_results.iloc[i]["PSE"], bootstrapped_results.iloc[i]["JND"], ISIs)
+    plot_curve (ISIs, avg_resps, sigma_hat, mu_hat)
+    return
