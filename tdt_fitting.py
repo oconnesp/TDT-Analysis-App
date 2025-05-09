@@ -7,7 +7,7 @@ returns statistics
 """
 import sys
 from pathlib import Path
-
+import random
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -47,8 +47,10 @@ def extract_trials(csv_path: str, no_trials: int):
         resp_list.append(resp)
 
     all_isis = np.unique(np.concatenate(isi_list))
-
+    return isi_list, resp_list, all_isis
 #all isis with no duplciates
+
+def analyse_TDTs (isi_list, resp_list, all_isis, no_trials ):
     length = len(all_isis)
     summed_resps = np.zeros(length) # an array of zeros for summed responses
     resp_counter = np.zeros(length) #counter for each index
@@ -76,7 +78,7 @@ def extract_trials(csv_path: str, no_trials: int):
         
         #Create an array for ISIs, an array for 
 
-    return all_isis, avg_resps, summed_resps, resp_counter, TDT
+    return avg_resps, summed_resps, resp_counter, TDT
 
 
 ### now have all_isis and their avg_resps
@@ -132,4 +134,26 @@ def plot_curve(all_isis, avg_resps, sigma_fitted, mu_fitted):
     plt.show()
     return
 
+
+def bootstrap (mu, sigma, ISIs, no_bootstraps, no_trials ):
+    no_ISIs = len(ISIs)
+    ISI_list = [ISIs.copy() for _ in range(no_trials)]
+    resp_list: list[np.ndarray] = []
+    bootstrap_rows = []
+    p = norm.cdf(ISIs, loc=mu, scale=sigma)#vectorised
+    for i in range (no_bootstraps): # do this 2000 times, once per bootstrap
+        resp_list: list[np.ndarray] = [] 
+
+        for m in range (no_trials):#generate no_trials random trials, do this 8000 times (once per trial per bootstrap)
+        #to find TDT, need to do each trial and assess
+
+
+            resp_list.append (np.random.rand (no_ISIs) < p )#copy the successes into resp_list
+
+
+        avg_resps, summed_resps, resp_counter, TDT = analyse_TDTs (ISI_list, resp_list, ISIs, no_trials)
+        mu_sim, sigma_sim = Fit_to_Gaussian (ISIs, resp_counter, summed_resps, TDT)
+        bootstrap_rows.append({"mu": mu_sim, "sigma": sigma_sim, "TDT": TDT})
+
+    return pd.DataFrame(bootstrap_rows)
 
