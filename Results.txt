@@ -1,0 +1,505 @@
+Initialising Application at: Monday, June 24, 2024 9:58:51 AM
+Tutorial Start Time: 6/24/2024 9:59:01 AM
+Tutorial End Time: 6/24/2024 10:00:06 AM
+VisualTDT Test Started Timestamp: Monday, June 24, 2024 10:00:06 AM
+Inter Stimulus Delay: 0s. Same
+Inter Stimulus Delay: 0.005s. Same
+Inter Stimulus Delay: 0.01s. Same
+Inter Stimulus Delay: 0.015s. Same
+Inter Stimulus Delay: 0.02s. Same
+Inter Stimulus Delay: 0.025s. Same
+Inter Stimulus Delay: 0.03s. Same
+Inter Stimulus Delay: 0.035s. Different
+Inter Stimulus Delay: 0.04s. Different
+Inter Stimulus Delay: 0.045s. Different
+Inter Stimulus Delay: 0.05s. Different
+Inter Stimulus Delay: 0.055s. Different
+Inter Stimulus Delay: 0.06s. Different
+Inter Stimulus Delay: 0.065s. Different
+Inter Stimulus Delay: 0.07s. Different
+Inter Stimulus Delay: 0.075s. Different
+Inter Stimulus Delay: 0.08s. Different
+Inter Stimulus Delay: 0.085s. Different
+Inter Stimulus Delay: 0.09s. Different
+Inter Stimulus Delay: 0.095s. Different
+Inter Stimulus Delay: 0.09999999s. Different
+Response: 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+TDTArray: 0, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.09999999
+Final TDT: 0.035
+TDTArray Sequence: 0, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.09999999
+TDT Score: 0.035s
+-----------------------------------------------------------------------------------
+Initialising Application at: Monday, June 24, 2024 10:02:47 AM
+Initialising Application at: Monday, June 24, 2024 10:10:53 AM
+VisualTDT Test Started Timestamp: Monday, June 24, 2024 10:10:59 AM
+Inter Stimulus Delay: 0.03s. Different
+Inter Stimulus Delay: 0.035s. Same
+Inter Stimulus Delay: 0.085s. Different
+Inter Stimulus Delay: 0.05s. Different
+Inter Stimulus Delay: 0.025s. Different
+Inter Stimulus Delay: 0.04s. Different
+Inter Stimulus Delay: 0.07s. Different
+Inter Stimulus Delay: 0.045s. Same
+Inter Stimulus Delay: 0s. Same
+Inter Stimulus Delay: 0.09999999s. Different
+Inter Stimulus Delay: 0.08s. Different
+Inter Stimulus Delay: 0.01s. Same
+Inter Stimulus Delay: 0.005s. Same
+Inter Stimulus Delay: 0.09s. Different
+Inter Stimulus Delay: 0.06s. Different
+Inter Stimulus Delay: 0.095s. Different
+Inter Stimulus Delay: 0.055s. Different
+Inter Stimulus Delay: 0.075s. Different
+Inter Stimulus Delay: 0.02s. Different
+Inter Stimulus Delay: 0.015s. Same
+Inter Stimulus Delay: 0.065s. Different
+Response: 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+TDTArray: 0, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.09999999
+Final TDT: 0.02
+TDTArray Sequence: 0.025, 0.095, 0.035, 0.08, 0.065, 0.02, 0.005, 0.03, 0.09, 0.06, 0.05, 0, 0.045, 0.085, 0.075, 0.07, 0.04, 0.01, 0.09999999, 0.055, 0.015
+TDT Score: 0.02s
+-----------------------------------------------------------------------------------
+Initialising Application at: Monday, June 24, 2024 10:30:59 AM
+Tutorial Start Time: 6/24/2024 10:31:08 AM
+Tutorial End Time: 6/24/2024 10:31:58 AM
+VisualTDT Test Started Timestamp: Monday, June 24, 2024 10:31:58 AM
+Inter Stimulus Delay: 0.075s. Different
+Inter Stimulus Delay: 0.04s. Different
+Inter Stimulus Delay: 0.05s. Different
+Inter Stimulus Delay: 0.06s. Different
+Inter Stimulus Delay: 0.065s. Different
+Inter Stimulus Delay: 0.07s. Different
+Inter Stimulus Delay: 0.085s. Different
+Inter Stimulus Delay: 0.08s. Different
+Inter Stimulus Delay: 0.055s. Different
+Inter Stimulus Delay: 0.02s. Same
+Inter Stimulus Delay: 0.09999999s. Different
+Inter Stimulus Delay: 0.09s. Different
+Inter Stimulus Delay: 0.025s. Same
+Inter Stimulus Delay: 0s. Same
+Inter Stimulus Delay: 0.005s. Same
+Inter Stimulus Delay: 0.03s. Same
+Inter Stimulus Delay: 0.035s. Same
+Inter Stimulus Delay: 0.015s. Same
+Inter Stimulus Delay: 0.01s. Same
+Inter Stimulus Delay: 0.095s. Different
+Inter Stimulus Delay: 0.045s. Different
+Response: 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+TDTArray:  0, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.09999999
+Final TDT: 0.04
+TDTArray Sequence: 0.01, 0.09, 0.06, 0.045, 0, 0.03, 0.025, 0.05, 0.055, 0.04, 0.08, 0.065, 0.005, 0.02, 0.075, 0.085, 0.09999999, 0.035, 0.095, 0.015, 0.07
+TDT Score: 0.04s
+-----------------------------------------------------------------------------------
+Initialising Application at: Monday, June 24, 2024 10:33:56 AM
+VisualTDT Test Started Timestamp: Monday, June 24, 2024 10:34:10 AM
+Inter Stimulus Delay: 0s. Same
+Inter Stimulus Delay: 0.005s. Same
+Inter Stimulus Delay: 0.01s. Same
+Inter Stimulus Delay: 0.015s. Same
+Inter Stimulus Delay: 0.02s. Same
+Inter Stimulus Delay: 0.025s. Same
+Inter Stimulus Delay: 0.03s. Same
+Inter Stimulus Delay: 0.035s. Same
+Inter Stimulus Delay: 0.04s. Same
+Inter Stimulus Delay: 0.045s. Different
+Inter Stimulus Delay: 0.05s. Different
+Inter Stimulus Delay: 0.055s. Different
+Inter Stimulus Delay: 0.06s. Different
+Inter Stimulus Delay: 0.065s. Different
+Inter Stimulus Delay: 0.07s. Different
+Inter Stimulus Delay: 0.075s. Different
+Inter Stimulus Delay: 0.08s. Different
+Inter Stimulus Delay: 0.085s. Different
+Inter Stimulus Delay: 0.09s. Different
+Inter Stimulus Delay: 0.095s. Different
+Inter Stimulus Delay: 0.09999999s. Different
+Response: 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+TDTArray: 0, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.09999999
+Final TDT: 0.045
+TDTArray Sequence: 0, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.09999999
+TDT Score: 0.045s
+-----------------------------------------------------------------------------------
+Initialising Application at: Thursday, June 27, 2024 10:14:38 AM
+Tutorial Start Time: 6/27/2024 10:14:47 AM
+Tutorial End Time: 6/27/2024 10:16:36 AM
+VisualTDT Test Started Timestamp: Thursday, June 27, 2024 10:16:37 AM
+Inter Stimulus Delay: 0s. Same
+Inter Stimulus Delay: 0.005s. Same
+Inter Stimulus Delay: 0.01s. Same
+Inter Stimulus Delay: 0.015s. Same
+Inter Stimulus Delay: 0.02s. Same
+Inter Stimulus Delay: 0.025s. Same
+Inter Stimulus Delay: 0.03s. Same
+Inter Stimulus Delay: 0.035s. Same
+Inter Stimulus Delay: 0.04s. Same
+Inter Stimulus Delay: 0.045s. Same
+Inter Stimulus Delay: 0.05s. Same
+Inter Stimulus Delay: 0.055s. Same
+Inter Stimulus Delay: 0.06s. Different
+Inter Stimulus Delay: 0.065s. Different
+Inter Stimulus Delay: 0.07s. Different
+Inter Stimulus Delay: 0.075s. Different
+Inter Stimulus Delay: 0.08s. Different
+Inter Stimulus Delay: 0.085s. Different
+Inter Stimulus Delay: 0.09s. Different
+Inter Stimulus Delay: 0.095s. Different
+Inter Stimulus Delay: 0.09999999s. Different
+Response: 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1
+TDTArray: 0, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.09999999
+Final TDT: 0.06
+TDTArray Sequence: 0, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.09999999
+TDT Score: 0.06s
+-----------------------------------------------------------------------------------
+Initialising Application at: Thursday, June 27, 2024 10:32:35 AM
+Tutorial Start Time: 6/27/2024 10:32:42 AM
+Tutorial End Time: 6/27/2024 10:33:49 AM
+VisualTDT Test Started Timestamp: Thursday, June 27, 2024 10:33:49 AM
+Inter Stimulus Delay: 0.02s. Same
+Inter Stimulus Delay: 0.065s. Different
+Inter Stimulus Delay: 0.05s. Different
+Inter Stimulus Delay: 0.04s. Same
+Inter Stimulus Delay: 0.08s. Different
+Inter Stimulus Delay: 0.06s. Different
+Inter Stimulus Delay: 0.025s. Same
+Inter Stimulus Delay: 0.085s. Different
+Inter Stimulus Delay: 0.03s. Different
+Inter Stimulus Delay: 0.09999999s. Different
+Inter Stimulus Delay: 0.015s. Same
+Inter Stimulus Delay: 0.09s. Different
+Inter Stimulus Delay: 0s. Same
+Inter Stimulus Delay: 0.07s. Same
+Inter Stimulus Delay: 0.075s. Different
+Inter Stimulus Delay: 0.035s. Same
+Inter Stimulus Delay: 0.045s. Different
+Inter Stimulus Delay: 0.005s. Same
+Inter Stimulus Delay: 0.01s. Same
+Inter Stimulus Delay: 0.095s. Different
+Inter Stimulus Delay: 0.055s. Different
+Response: 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1
+TDTArray: 0.02, 0.065, 0.05, 0.04, 0.08, 0.06, 0.025, 0.085, 0.03, 0.09999999, 0.015, 0.09, 0, 0.07, 0.075, 0.035, 0.045, 0.005, 0.01, 0.095, 0.055
+Final TDT: 0.045
+TDTArray Sequence: 0.005, 0.02, 0.075, 0, 0.065, 0.025, 0.085, 0.035, 0.09999999, 0.09, 0.01, 0.06, 0.07, 0.015, 0.095, 0.055, 0.04, 0.05, 0.045, 0.03, 0.08
+TDT Score: 0.045s
+-----------------------------------------------------------------------------------
+Initialising Application at: Thursday, June 27, 2024 10:36:05 AM
+Initialising Application at: Thursday, June 27, 2024 2:20:38 PM
+VisualTDT Test Started Timestamp: Thursday, June 27, 2024 2:20:47 PM
+Inter Stimulus Delay: 0s. Same
+Inter Stimulus Delay: 0.005s. Same
+Inter Stimulus Delay: 0.01s. Same
+Inter Stimulus Delay: 0.015s. Different
+Inter Stimulus Delay: 0.02s. Same
+Inter Stimulus Delay: 0.025s. Same
+Inter Stimulus Delay: 0.03s. Different
+Inter Stimulus Delay: 0.035s. Same
+Inter Stimulus Delay: 0.04s. Different
+Inter Stimulus Delay: 0.045s. Different
+Inter Stimulus Delay: 0.05s. Different
+Inter Stimulus Delay: 0.055s. Different
+Inter Stimulus Delay: 0.06s. Different
+Inter Stimulus Delay: 0.065s. Different
+Inter Stimulus Delay: 0.07s. Different
+Inter Stimulus Delay: 0.075s. Different
+Inter Stimulus Delay: 0.08s. Different
+Inter Stimulus Delay: 0.085s. Different
+Inter Stimulus Delay: 0.09s. Different
+Inter Stimulus Delay: 0.095s. Different
+Inter Stimulus Delay: 0.09999999s. Different
+Response: 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+TDTArray: 0, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.09999999
+Final TDT: 0.04
+TDTArray Sequence: 0, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.09999999
+TDT Score: 0.04s
+-----------------------------------------------------------------------------------
+Initialising Application at: Thursday, June 27, 2024 2:22:53 PM
+Tutorial Start Time: 6/27/2024 2:22:59 PM
+Tutorial End Time: 6/27/2024 2:23:50 PM
+VisualTDT Test Started Timestamp: Thursday, June 27, 2024 2:23:50 PM
+Inter Stimulus Delay: 0.065s. Different
+Inter Stimulus Delay: 0.035s. Same
+Inter Stimulus Delay: 0.085s. Different
+Inter Stimulus Delay: 0.015s. Same
+Inter Stimulus Delay: 0.04s. Same
+Inter Stimulus Delay: 0.07s. Different
+Inter Stimulus Delay: 0.02s. Same
+Inter Stimulus Delay: 0.06s. Same
+Inter Stimulus Delay: 0s. Same
+Inter Stimulus Delay: 0.01s. Same
+Inter Stimulus Delay: 0.09999999s. Different
+Inter Stimulus Delay: 0.075s. Different
+Inter Stimulus Delay: 0.03s. Same
+Inter Stimulus Delay: 0.055s. Different
+Inter Stimulus Delay: 0.095s. Different
+Inter Stimulus Delay: 0.08s. Different
+Inter Stimulus Delay: 0.045s. Same
+Inter Stimulus Delay: 0.005s. Same
+Inter Stimulus Delay: 0.025s. Same
+Inter Stimulus Delay: 0.09s. Different
+Inter Stimulus Delay: 0.05s. Same
+Response: 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1
+TDTArray: 0.065, 0.035, 0.085, 0.015, 0.04, 0.07, 0.02, 0.06, 0, 0.01, 0.09999999, 0.075, 0.03, 0.055, 0.095, 0.08, 0.045, 0.005, 0.025, 0.09, 0.05
+Final TDT: 0.065
+TDTArray Sequence: 0.075, 0.08, 0.01, 0.035, 0.015, 0.005, 0.09999999, 0.02, 0.045, 0.05, 0.065, 0.07, 0.025, 0.03, 0, 0.095, 0.06, 0.085, 0.055, 0.04, 0.09
+TDT Score: 0.065s
+-----------------------------------------------------------------------------------
+Initialising Application at: Thursday, June 27, 2024 2:25:54 PM
+Initialising Application at: Thursday, June 27, 2024 3:03:11 PM
+Tutorial Start Time: 6/27/2024 3:03:16 PM
+Tutorial End Time: 6/27/2024 3:04:29 PM
+VisualTDT Test Started Timestamp: Thursday, June 27, 2024 3:04:29 PM
+Inter Stimulus Delay: 0.03s. Different
+Inter Stimulus Delay: 0.035s. Different
+Inter Stimulus Delay: 0.045s. Different
+Inter Stimulus Delay: 0.065s. Different
+Inter Stimulus Delay: 0.01s. Same
+Inter Stimulus Delay: 0.075s. Different
+Inter Stimulus Delay: 0.05s. Different
+Inter Stimulus Delay: 0.08s. Different
+Inter Stimulus Delay: 0.07s. Different
+Inter Stimulus Delay: 0.005s. Same
+Inter Stimulus Delay: 0.09999999s. Different
+Inter Stimulus Delay: 0.015s. Same
+Inter Stimulus Delay: 0.055s. Different
+Inter Stimulus Delay: 0.04s. Different
+Inter Stimulus Delay: 0.02s. Same
+Inter Stimulus Delay: 0.025s. Different
+Inter Stimulus Delay: 0s. Same
+Inter Stimulus Delay: 0.06s. Different
+Inter Stimulus Delay: 0.09s. Different
+Inter Stimulus Delay: 0.085s. Different
+Inter Stimulus Delay: 0.095s. Different
+Response: 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+TDTArray: 0.03, 0.035, 0.045, 0.065, 0.01, 0.075, 0.05, 0.08, 0.07, 0.005, 0.09999999, 0.015, 0.055, 0.04, 0.02, 0.025, 0, 0.06, 0.09, 0.085, 0.095
+Final TDT: 0.025
+TDTArray Sequence: 0.01, 0.085, 0.095, 0.035, 0.055, 0, 0.045, 0.07, 0.025, 0.065, 0.015, 0.005, 0.05, 0.06, 0.03, 0.075, 0.09999999, 0.09, 0.08, 0.02, 0.04
+TDT Score: 0.025s
+-----------------------------------------------------------------------------------
+Initialising Application at: Thursday, June 27, 2024 3:15:20 PM
+Tutorial Start Time: 6/27/2024 3:15:27 PM
+Initialising Application at: Thursday, June 27, 2024 3:16:02 PM
+Tutorial Start Time: 6/27/2024 3:16:06 PM
+Tutorial End Time: 6/27/2024 3:17:33 PM
+VisualTDT Test Started Timestamp: Thursday, June 27, 2024 3:17:33 PM
+Inter Stimulus Delay: 0.09999999s. Different
+Inter Stimulus Delay: 0.005s. Same
+Inter Stimulus Delay: 0.095s. Different
+Inter Stimulus Delay: 0.02s. Different
+Inter Stimulus Delay: 0.06s. Different
+Inter Stimulus Delay: 0.035s. Different
+Inter Stimulus Delay: 0.085s. Different
+Inter Stimulus Delay: 0.09s. Different
+Inter Stimulus Delay: 0.045s. Different
+Inter Stimulus Delay: 0.075s. Different
+Inter Stimulus Delay: 0.025s. Different
+Inter Stimulus Delay: 0.04s. Different
+Inter Stimulus Delay: 0.055s. Different
+Inter Stimulus Delay: 0.01s. Different
+Inter Stimulus Delay: 0.05s. Different
+Inter Stimulus Delay: 0.03s. Different
+Inter Stimulus Delay: 0.08s. Different
+Inter Stimulus Delay: 0.065s. Different
+Inter Stimulus Delay: 0.07s. Different
+Inter Stimulus Delay: 0.015s. Same
+Inter Stimulus Delay: 0s. Different
+Response: 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+TDTArray: 0.09999999, 0.005, 0.095, 0.02, 0.06, 0.035, 0.085, 0.09, 0.045, 0.075, 0.025, 0.04, 0.055, 0.01, 0.05, 0.03, 0.08, 0.065, 0.07, 0.015, 0
+Final TDT: 0.02
+TDTArray Sequence: 0.075, 0.06, 0.08, 0.03, 0.02, 0.09999999, 0.005, 0.025, 0.095, 0.01, 0.065, 0.05, 0, 0.085, 0.045, 0.09, 0.07, 0.055, 0.015, 0.035, 0.04
+TDT Score: 0.02s
+-----------------------------------------------------------------------------------
+Initialising Application at: Thursday, June 27, 2024 3:20:15 PM
+Tutorial Start Time: 6/27/2024 3:20:18 PM
+Tutorial End Time: 6/27/2024 3:21:45 PM
+VisualTDT Test Started Timestamp: Thursday, June 27, 2024 3:21:45 PM
+Inter Stimulus Delay: 0.005s. Different
+Inter Stimulus Delay: 0s. Different
+Inter Stimulus Delay: 0.03s. Different
+Inter Stimulus Delay: 0.045s. Different
+Inter Stimulus Delay: 0.09s. Different
+Inter Stimulus Delay: 0.065s. Different
+Inter Stimulus Delay: 0.05s. Different
+Inter Stimulus Delay: 0.06s. Different
+Inter Stimulus Delay: 0.01s. Same
+Inter Stimulus Delay: 0.015s. Same
+Inter Stimulus Delay: 0.035s. Different
+Inter Stimulus Delay: 0.075s. Different
+Inter Stimulus Delay: 0.055s. Different
+Inter Stimulus Delay: 0.07s. Different
+Inter Stimulus Delay: 0.08s. Different
+Inter Stimulus Delay: 0.09999999s. Different
+Inter Stimulus Delay: 0.095s. Different
+Inter Stimulus Delay: 0.02s. Same
+Inter Stimulus Delay: 0.04s. Different
+Inter Stimulus Delay: 0.025s. Same
+Inter Stimulus Delay: 0.085s. Different
+Response: 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+TDTArray: 0.005, 0, 0.03, 0.045, 0.09, 0.065, 0.05, 0.06, 0.01, 0.015, 0.035, 0.075, 0.055, 0.07, 0.08, 0.09999999, 0.095, 0.02, 0.04, 0.025, 0.085
+Final TDT: 0.03
+TDTArray Sequence: 0.08, 0.07, 0, 0.055, 0.04, 0.09999999, 0.085, 0.025, 0.015, 0.035, 0.095, 0.01, 0.05, 0.075, 0.005, 0.06, 0.09, 0.045, 0.02, 0.03, 0.065
+TDT Score: 0.03s
+-----------------------------------------------------------------------------------
+Initialising Application at: Thursday, June 27, 2024 3:27:57 PM
+Tutorial Start Time: 6/27/2024 3:27:59 PM
+Initialising Application at: Thursday, June 27, 2024 3:28:10 PM
+Tutorial Start Time: 6/27/2024 3:28:16 PM
+Tutorial End Time: 6/27/2024 3:30:09 PM
+VisualTDT Test Started Timestamp: Thursday, June 27, 2024 3:30:09 PM
+Inter Stimulus Delay: 0.065s. Different
+Inter Stimulus Delay: 0.075s. Different
+Inter Stimulus Delay: 0.05s. Different
+Inter Stimulus Delay: 0.03s. Different
+Inter Stimulus Delay: 0.005s. Same
+Inter Stimulus Delay: 0.09s. Different
+Inter Stimulus Delay: 0.085s. Different
+Inter Stimulus Delay: 0.095s. Different
+Inter Stimulus Delay: 0.04s. Different
+Inter Stimulus Delay: 0.06s. Different
+Inter Stimulus Delay: 0.025s. Different
+Inter Stimulus Delay: 0.01s. Same
+Inter Stimulus Delay: 0.02s. Same
+Inter Stimulus Delay: 0.08s. Different
+Inter Stimulus Delay: 0.015s. Same
+Inter Stimulus Delay: 0.035s. Different
+Inter Stimulus Delay: 0.045s. Different
+Inter Stimulus Delay: 0.055s. Different
+Inter Stimulus Delay: 0.07s. Different
+Inter Stimulus Delay: 0s. Same
+Inter Stimulus Delay: 0.09999999s. Different
+Response: 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+TDTArray: 0.065, 0.075, 0.05, 0.03, 0.005, 0.09, 0.085, 0.095, 0.04, 0.06, 0.025, 0.01, 0.02, 0.08, 0.015, 0.035, 0.045, 0.055, 0.07, 0, 0.09999999
+Final TDT: 0.025
+TDTArray Sequence: 0.075, 0.07, 0.09999999, 0, 0.095, 0.01, 0.025, 0.065, 0.06, 0.085, 0.03, 0.02, 0.035, 0.09, 0.055, 0.005, 0.045, 0.08, 0.04, 0.05, 0.015
+TDT Score: 0.025s
+-----------------------------------------------------------------------------------
+Initialising Application at: Thursday, June 27, 2024 3:35:00 PM
+Tutorial Start Time: 6/27/2024 3:35:03 PM
+Initialising Application at: Thursday, June 27, 2024 3:35:14 PM
+Tutorial Start Time: 6/27/2024 3:35:18 PM
+Initialising Application at: Thursday, June 27, 2024 4:47:52 PM
+Tutorial Start Time: 6/27/2024 4:47:54 PM
+Initialising Application at: Friday, June 28, 2024 10:37:32 AM
+Tutorial Start Time: 6/28/2024 10:37:36 AM
+Initialising Application at: Friday, June 28, 2024 10:38:12 AM
+Tutorial Start Time: 6/28/2024 10:38:15 AM
+Tutorial End Time: 6/28/2024 10:40:01 AM
+VisualTDT Test Started Timestamp: Friday, June 28, 2024 10:40:01 AM
+Inter Stimulus Delay: 0s. Same
+Inter Stimulus Delay: 0.005s. Different
+Inter Stimulus Delay: 0.01s. Same
+Inter Stimulus Delay: 0.015s. Different
+Inter Stimulus Delay: 0.02s. Different
+Inter Stimulus Delay: 0.025s. Different
+Inter Stimulus Delay: 0.03s. Different
+Inter Stimulus Delay: 0.035s. Different
+Inter Stimulus Delay: 0.04s. Different
+Inter Stimulus Delay: 0.045s. Different
+Inter Stimulus Delay: 0.05s. Different
+Inter Stimulus Delay: 0.055s. Different
+Inter Stimulus Delay: 0.06s. Different
+Inter Stimulus Delay: 0.065s. Different
+Inter Stimulus Delay: 0.07s. Different
+Inter Stimulus Delay: 0.075s. Different
+Inter Stimulus Delay: 0.08s. Different
+Inter Stimulus Delay: 0.085s. Different
+Inter Stimulus Delay: 0.09s. Different
+Inter Stimulus Delay: 0.095s. Different
+Inter Stimulus Delay: 0.09999999s. Different
+Response: 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+TDTArray: 0, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.09999999
+Final TDT: 0.015
+TDTArray Sequence: 0, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.09999999
+TDT Score: 0.015s
+-----------------------------------------------------------------------------------
+Initialising Application at: Friday, June 28, 2024 10:41:54 AM
+Tutorial Start Time: 6/28/2024 10:51:31 AM
+Tutorial End Time: 6/28/2024 10:53:54 AM
+VisualTDT Test Started Timestamp: Friday, June 28, 2024 10:53:54 AM
+Inter Stimulus Delay: 0s. Same
+Inter Stimulus Delay: 0.005s. Same
+Inter Stimulus Delay: 0.01s. Same
+Inter Stimulus Delay: 0.015s. Same
+Inter Stimulus Delay: 0.02s. Different
+Inter Stimulus Delay: 0.025s. Same
+Inter Stimulus Delay: 0.03s. Same
+Inter Stimulus Delay: 0.035s. Same
+Inter Stimulus Delay: 0.04s. Different
+Inter Stimulus Delay: 0.045s. Different
+Inter Stimulus Delay: 0.05s. Different
+Inter Stimulus Delay: 0.055s. Different
+Inter Stimulus Delay: 0.06s. Different
+Inter Stimulus Delay: 0.065s. Different
+Inter Stimulus Delay: 0.07s. Different
+Inter Stimulus Delay: 0.075s. Different
+Inter Stimulus Delay: 0.08s. Different
+Inter Stimulus Delay: 0.085s. Different
+Inter Stimulus Delay: 0.09s. Different
+Inter Stimulus Delay: 0.095s. Different
+Inter Stimulus Delay: 0.09999999s. Different
+Response: 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+TDTArray: 0, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.09999999
+Final TDT: 0.04
+TDTArray Sequence: 0, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.09999999
+TDT Score: 0.04s
+-----------------------------------------------------------------------------------
+Initialising Application at: Friday, June 28, 2024 11:38:08 AM
+Tutorial Start Time: 6/28/2024 11:38:11 AM
+Tutorial End Time: 6/28/2024 11:41:51 AM
+VisualTDT Test Started Timestamp: Friday, June 28, 2024 11:41:51 AM
+Inter Stimulus Delay: 0s. Same
+Inter Stimulus Delay: 0.005s. Same
+Inter Stimulus Delay: 0.01s. Same
+Inter Stimulus Delay: 0.015s. Same
+Inter Stimulus Delay: 0.02s. Same
+Inter Stimulus Delay: 0.025s. Same
+Inter Stimulus Delay: 0.03s. Same
+Inter Stimulus Delay: 0.035s. Same
+Inter Stimulus Delay: 0.04s. Same
+Inter Stimulus Delay: 0.045s. Same
+Inter Stimulus Delay: 0.05s. Same
+Inter Stimulus Delay: 0.055s. Same
+Inter Stimulus Delay: 0.06s. Same
+Inter Stimulus Delay: 0.065s. Same
+Inter Stimulus Delay: 0.07s. Same
+Inter Stimulus Delay: 0.075s. Same
+Inter Stimulus Delay: 0.08s. Different
+Inter Stimulus Delay: 0.085s. Same
+Inter Stimulus Delay: 0.09s. Same
+Inter Stimulus Delay: 0.095s. Different
+Inter Stimulus Delay: 0.09999999s. Different
+Response: 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1
+TDTArray: 0, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.09999999
+Final TDT: 0
+TDTArray Sequence: 0, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.09999999
+TDT Score: 0s
+-----------------------------------------------------------------------------------
+Initialising Application at: Friday, June 28, 2024 12:51:52 PM
+Tutorial Start Time: 6/28/2024 12:51:55 PM
+Tutorial End Time: 6/28/2024 12:53:32 PM
+VisualTDT Test Started Timestamp: Friday, June 28, 2024 12:53:32 PM
+Inter Stimulus Delay: 0s. Different
+Inter Stimulus Delay: 0.005s. Same
+Inter Stimulus Delay: 0.01s. Same
+Inter Stimulus Delay: 0.015s. Same
+Inter Stimulus Delay: 0.02s. Same
+Inter Stimulus Delay: 0.025s. Same
+Inter Stimulus Delay: 0.03s. Same
+Inter Stimulus Delay: 0.035s. Same
+Inter Stimulus Delay: 0.04s. Same
+Inter Stimulus Delay: 0.045s. Same
+Inter Stimulus Delay: 0.05s. Same
+Inter Stimulus Delay: 0.055s. Same
+Inter Stimulus Delay: 0.06s. Different
+Inter Stimulus Delay: 0.065s. Different
+Inter Stimulus Delay: 0.07s. Different
+Inter Stimulus Delay: 0.075s. Different
+Inter Stimulus Delay: 0.08s. Different
+Inter Stimulus Delay: 0.085s. Different
+Inter Stimulus Delay: 0.09s. Different
+Inter Stimulus Delay: 0.095s. Different
+Inter Stimulus Delay: 0.09999999s. Different
+Response: 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1
+TDTArray: 0, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.09999999
+Final TDT: 0.06
+TDTArray Sequence: 0, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.09999999
+TDT Score: 0.06s
+-----------------------------------------------------------------------------------
