@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import scikits.bootstrap as bootci
 import os
 from datetime import datetime
+from txt_parsing import extract_from_txt
 csv_path = r"C:\Users\OCONNESP\OneDrive - Trinity College Dublin\College\College\Year 3\Reilly Lab\TDT Analysis App\EXAMPLE_24_06_2024.csv"
 no_bootstraps = 2000
 
@@ -42,7 +43,7 @@ def build_gui():
             messagebox.showerror("Input error", "Please enter an integer number of trials.")
             return
         ID_timestamp = f"{patient_id}" +" " + datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        isi_list, resp_list, all_isis = fit.extract_trials(csv_path, no_trials)
+        isi_list, resp_list, all_isis = extract_from_txt("Results.txt", no_trials)
         avg_resps, summed_resps, resp_counter, TDT = fit.analyse_TDTs(isi_list, resp_list, all_isis, no_trials)
         mu_hat, sigma_hat = fit.Fit_to_Gaussian(all_isis, resp_counter, summed_resps, TDT)
 
