@@ -15,42 +15,8 @@ from scipy.optimize import minimize
 from scipy.stats import norm
 from scikits.bootstrap import bootstrap as bootci
 
-def extract_trials(csv_path: str, no_trials: int):
-    df = pd.read_csv(csv_path)
 
-    isi_list:  list[np.ndarray] = []
-    resp_list: list[np.ndarray] = []
-
-    for t in range(no_trials):
-        isi_col  = df.columns[t * 2]       # 0, 2, 4, …
-        resp_col = df.columns[t * 2 + 1]   # 1, 3, 5, …
-
-        # Keep only numeric data, drop NaNs (headers, “TDT”, etc.)
-    # take the two columns, but skip row 0
-        pair = (
-        df.loc[1:, [isi_col, resp_col]]     # ← here!
-          .apply(pd.to_numeric, errors="coerce")
-        )
-
-        # find first NaN and slice up to it
-        null_mask = pair.isna().any(axis=1).to_numpy()
-        if null_mask.any():
-            stop_idx = int(null_mask.argmax())
-            pair = pair.iloc[:stop_idx]
-
-    # convert & scale
-        isi  = pair[isi_col].to_numpy(float) * 1000
-        resp = pair[resp_col].round().astype(int).to_numpy()
-
-
-        isi_list.append(isi)
-        resp_list.append(resp)
-
-    all_isis = np.unique(np.concatenate(isi_list))
-    return isi_list, resp_list, all_isis
-#all isis with no duplciates
-
-def analyse_TDTs (isi_list, resp_list, all_isis, no_trials ):
+def analyse_TDTs (isi_list, resp_list, all_isis, no_trials):
     length = len(all_isis)
     summed_resps = np.zeros(length) # an array of zeros for summed responses
     resp_counter = np.zeros(length) #counter for each index
@@ -58,13 +24,13 @@ def analyse_TDTs (isi_list, resp_list, all_isis, no_trials ):
     threshold_values = np.zeros (no_trials)
     #find TDT 
     for n in range (no_trials):
-        for i in range (len(resp_list[n]) - 2): 
-            if ( (resp_list[n][i] == 1) and (resp_list[n][i+1] == 1) and (resp_list[n][i+2] == 1)  ):
-                threshold_values[n] = isi_list[n][i]
+        for i in range (len(resp_list[n]) - 2): #iterate through responses
+            if ( (resp_list[n][i] == 1) and (resp_list[n][i+1] == 1) and (resp_list[n][i+2] == 1)  ): #if you get 3 "different's" in a row
+                threshold_values[n] = isi_list[n][i] #the first of the sequence of 3 "different's  #TODO alter in case of random??
                 break
     
-    TDT = np.median(threshold_values)
-    #print (f"TDT = {TDT:.2f}")
+    TDT = np.median(threshold_values)#TDT is the median of the thresholds for all runs
+
         ### Take each response and add it into an array with indeces corresponding to each ISI
     for n in range (no_trials): 
         for i in range (len(isi_list[n])):
@@ -76,14 +42,12 @@ def analyse_TDTs (isi_list, resp_list, all_isis, no_trials ):
     for j in range (length):
         avg_resps [j] = summed_resps[j]/resp_counter[j]
         
-        #Create an array for ISIs, an array for 
+        #Create an array for ISIs, an array for summed responses, an array for the number of responses for each ISI (not uniform in case of random) 
 
     return avg_resps, summed_resps, resp_counter, TDT
 
 
 ### now have all_isis and their avg_resps
-
-
 ### next, fit to a cumulative Gaussian ###
 
 
@@ -108,9 +72,9 @@ def Fit_to_Gaussian (ISIs, n, k, TDT):
     sigma_guess = 0.1*np.ptp(ISIs)
 
     #bounds
-    bounds = ([0, np.max(ISIs)], [1e-6, np.inf])
+    bounds = ([0, np.max(ISIs)], [1e-6, np.inf])# mean in [0, max ISI], stdev in (0,inf)
 
-    result = minimize(
+    result = minimize( #minimise the negative log-likelihood,
         neg_log_likelihood,
         x0=[mu_guess, sigma_guess],
         args=(k, n, ISIs),
@@ -118,7 +82,7 @@ def Fit_to_Gaussian (ISIs, n, k, TDT):
         method="L-BFGS-B"
     )
     mu_hat, sigma_hat  = result.x
-    return mu_hat, sigma_hat
+    return mu_hat, sigma_hat #parameters for cumulative gaussian fit
 
 
 def plot_curve(all_isis, avg_resps, sigma_fitted, mu_fitted):
@@ -138,31 +102,29 @@ def plot_one_bootstrap(mu_hat, sigma_hat, ISIs):
 
 def bootstrap (mu, sigma, ISIs, no_bootstraps, no_trials ):
     no_ISIs = len(ISIs)
-    ISI_list = [ISIs.copy() for _ in range(no_trials)]
+    ISI_list = [ISIs.copy() for _ in range(no_trials)] #TODO does this work for random trials?
     resp_list: list[np.ndarray] = []
     bootstrap_rows = []
     p = norm.cdf(ISIs, loc=mu, scale=sigma)#vectorised
+
     for i in range (no_bootstraps): # do this 2000 times, once per bootstrap
         resp_list: list[np.ndarray] = [] 
 
         for m in range (no_trials):#generate no_trials random trials, do this 8000 times (once per trial per bootstrap)
         #to find TDT, need to do each trial and assess
 
+            resp_list.append (np.random.rand (no_ISIs) < p )#random Bernouilli trials using probabilities from the Gaussian fit
 
-            resp_list.append (np.random.rand (no_ISIs) < p )#copy the successes into resp_list
 
-
-        avg_resps, summed_resps, resp_counter, TDT = analyse_TDTs (ISI_list, resp_list, ISIs, no_trials)
-        mu_sim, sigma_sim = Fit_to_Gaussian (ISIs, resp_counter, summed_resps, TDT)
+        avg_resps, summed_resps, resp_counter, TDT = analyse_TDTs (ISI_list, resp_list, ISIs, no_trials)#Fit a Gaussian to this bootstrapped trial
+        mu_sim, sigma_sim = Fit_to_Gaussian (ISIs, resp_counter, summed_resps, TDT)#save the parameters
         bootstrap_rows.append({"PSE": mu_sim, "JND": sigma_sim, "TDT": TDT})
 
-    return pd.DataFrame(bootstrap_rows)
+    return pd.DataFrame(bootstrap_rows)#return an array of each bootstrap's parameters
 
 
 def plot_with_bootstraps (bootstrapped_results, mu_hat, sigma_hat, ISIs, avg_resps):#returns CI intervals
     for i in range (len(bootstrapped_results)):
         plot_one_bootstrap (bootstrapped_results.iloc[i]["PSE"], bootstrapped_results.iloc[i]["JND"], ISIs)
     plot_curve (ISIs, avg_resps, sigma_hat, mu_hat)
-    return 
-
-
+    return
