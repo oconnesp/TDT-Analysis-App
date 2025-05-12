@@ -1,3 +1,12 @@
+"""""
+GUI Main Script
+
+for Reilly Lab TDT Analysis
+Author: Spencer O'Connell
+
+"""""
+
+
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 import tdt_fitting as fit
@@ -9,16 +18,16 @@ import scikits.bootstrap as bootci
 import os
 from datetime import datetime
 from txt_parsing import extract_from_txt
-no_bootstraps = 2000
+no_bootstraps = 2000 #hard-coded
 
 
-def find_file_on_usb(filename="Results.txt"):
+def find_file_on_usb(filename="Results.txt"):#Find Results file
     from pathlib import Path
     potential_mounts = []
 
     if os.name == 'nt':  # Windows
         for drive in "DEFGHIJKLMNOPQRSTUVWXYZ":
-            potential_mounts.append(f"{drive}:/")
+            potential_mounts.append(f"{drive}:/") #potential path addresses
     else:  # macOS/Linux
         potential_mounts += ["/Volumes", "/media"]
 
@@ -28,7 +37,7 @@ def find_file_on_usb(filename="Results.txt"):
             for path in root_path.rglob(filename):
                 return str(path.resolve())
     return None
-
+#otherwise user can open file manually
 def prompt_user_for_file():
     root = tk.Tk()
     root.withdraw()
@@ -72,7 +81,7 @@ def build_gui():
             messagebox.showerror("No Results file found.")
             return
         try:
-            isi_list, resp_list, all_isis = extract_from_txt("Results.txt", no_trials)
+            isi_list, resp_list, all_isis = extract_from_txt(file_path, no_trials)
         except Exception as e:
             messagebox.showerror("File error", f"An error occurred while reading the file:\n{e}")
             return
@@ -81,9 +90,15 @@ def build_gui():
 
         root.patient_id = patient_id  
         bootstrapped_results = fit.bootstrap(mu_hat, sigma_hat, all_isis, no_bootstraps, no_trials)
+
+        ###95%CI calculations using scikits.bootstrap BCa method, Bias correction with acceleration
+        ###Recommended by Wichmann and Hill (2001)
+
         ci_mu = bootci.ci(data=bootstrapped_results["PSE"].values, statfunction=np.mean, method='bca')
         ci_sigma = bootci.ci(data=bootstrapped_results["JND"].values, statfunction=np.mean, method='bca')
         ci_TDT = bootci.ci(data=bootstrapped_results["TDT"].values, statfunction=np.mean, method='bca')
+
+
         ci_array = np.array([ci_mu, ci_sigma, ci_TDT])
         summary = (
             f"TDT: {TDT:.2f} ms (95% CI: {ci_TDT[0]:.2f} – {ci_TDT[1]:.2f})\n"
@@ -91,7 +106,7 @@ def build_gui():
             f"JND: {sigma_hat:.2f} ms (95% CI: {ci_sigma[0]:.2f} – {ci_sigma[1]:.2f})"
         )
         root.results_var.set(summary)     # show results immediately
-        root.update_idletasks()           # force a redraw if you like
+        root.update_idletasks()           # force a redraw
         plt.figure()
         fit.plot_with_bootstraps (bootstrapped_results, mu_hat, sigma_hat, all_isis, avg_resps)
         plt.text(
@@ -102,7 +117,7 @@ def build_gui():
         plt.title (ID_timestamp)
         fig = plt.gcf()
         plt.show(block=False)
-        root.analysis_results = {
+        root.analysis_results = { #update root attributes
             "patient_id": patient_id,
             "no_trials": no_trials,
             "TDT": TDT,
