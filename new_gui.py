@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import ttk, messagebox, filedialog
 import tdt_fitting as fit
 import numpy as np
 import pandas as pd
@@ -9,8 +9,30 @@ import scikits.bootstrap as bootci
 import os
 from datetime import datetime
 from txt_parsing import extract_from_txt
-csv_path = r"C:\Users\OCONNESP\OneDrive - Trinity College Dublin\College\College\Year 3\Reilly Lab\TDT Analysis App\EXAMPLE_24_06_2024.csv"
 no_bootstraps = 2000
+
+
+def find_file_on_usb(filename="Results.txt"):
+    from pathlib import Path
+    potential_mounts = []
+
+    if os.name == 'nt':  # Windows
+        for drive in "DEFGHIJKLMNOPQRSTUVWXYZ":
+            potential_mounts.append(f"{drive}:/")
+    else:  # macOS/Linux
+        potential_mounts += ["/Volumes", "/media"]
+
+    for mount in potential_mounts:
+        root_path = Path(mount)
+        if root_path.exists():
+            for path in root_path.rglob(filename):
+                return str(path.resolve())
+    return None
+
+def prompt_user_for_file():
+    root = tk.Tk()
+    root.withdraw()
+    return filedialog.askopenfilename(title="Select Results.txt file", filetypes=[("Text Files", "*.txt")])
 
 
 def build_gui():
@@ -43,7 +65,17 @@ def build_gui():
             messagebox.showerror("Input error", "Please enter an integer number of trials.")
             return
         ID_timestamp = f"{patient_id}" +" " + datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        isi_list, resp_list, all_isis = extract_from_txt("Results.txt", no_trials)
+        file_path = find_file_on_usb ("Results.txt")
+        if not file_path:
+            file_path = prompt_user_for_file()
+        if not file_path:
+            messagebox.showerror("No Results file found.")
+            return
+        try:
+            isi_list, resp_list, all_isis = extract_from_txt("Results.txt", no_trials)
+        except Exception as e:
+            messagebox.showerror("File error", f"An error occurred while reading the file:\n{e}")
+            return
         avg_resps, summed_resps, resp_counter, TDT = fit.analyse_TDTs(isi_list, resp_list, all_isis, no_trials)
         mu_hat, sigma_hat = fit.Fit_to_Gaussian(all_isis, resp_counter, summed_resps, TDT)
 
@@ -59,8 +91,6 @@ def build_gui():
             f"JND: {sigma_hat:.2f} ms (95% CI: {ci_sigma[0]:.2f} – {ci_sigma[1]:.2f})"
         )
         root.results_var.set(summary)     # show results immediately
-        print("Summary set")
-
         root.update_idletasks()           # force a redraw if you like
         plt.figure()
         fit.plot_with_bootstraps (bootstrapped_results, mu_hat, sigma_hat, all_isis, avg_resps)
