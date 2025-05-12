@@ -125,7 +125,6 @@ def plot_curve(all_isis, avg_resps, sigma_fitted, mu_fitted):
     x_fitted = np.linspace (0, np.max(all_isis), 300)
     y_fitted = norm.cdf (x_fitted,loc=mu_fitted, scale =sigma_fitted)
     plt.plot (x_fitted, y_fitted, label = 'fit', color = 'black', lw = 2.0)
-    plt.text (70, 0.7, f"PSE: {mu_fitted :.2f}ms\n JND: {sigma_fitted :.2f}ms")
     plt.scatter (all_isis, avg_resps, label = 'data', marker = 'o', color = 'blue', zorder = 3)
     plt.xlabel ("Time (ms)")
     plt.ylabel ("Proportion of \"Different\" Responses")
