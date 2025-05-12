@@ -14,8 +14,8 @@ no_bootstraps = 2000
 
 def build_gui():
     root = tk.Tk()
-    root.title("TDT Analysis Skeleton GUI")
-    root.geometry("400x300")
+    root.title("TDT Patient Analysis App")
+    root.geometry("600x400")
     root.resizable(False, False)
 
     # Frame for user inputs
@@ -36,8 +36,12 @@ def build_gui():
 
     def on_run_analysis():
         patient_id = patient_id_var.get()
-        no_trials = int(trials_var.get())
-
+        try:
+            no_trials = int(trials_var.get())
+        except ValueError:
+            messagebox.showerror("Input error", "Please enter an integer number of trials.")
+            return
+        ID_timestamp = f"{patient_id}" +" " + datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         isi_list, resp_list, all_isis = fit.extract_trials(csv_path, no_trials)
         avg_resps, summed_resps, resp_counter, TDT = fit.analyse_TDTs(isi_list, resp_list, all_isis, no_trials)
         mu_hat, sigma_hat = fit.Fit_to_Gaussian(all_isis, resp_counter, summed_resps, TDT)
@@ -54,18 +58,19 @@ def build_gui():
             f"JND: {sigma_hat:.2f} ms (95% CI: {ci_sigma[0]:.2f} – {ci_sigma[1]:.2f})"
         )
         root.results_var.set(summary)     # show results immediately
+        print("Summary set")
+
         root.update_idletasks()           # force a redraw if you like
         plt.figure()
         fit.plot_with_bootstraps (bootstrapped_results, mu_hat, sigma_hat, all_isis, avg_resps)
         plt.text(
-        0.02, 0.98, summary,
+        60, 0.7, summary,
         fontsize=9,
-        verticalalignment='top',
-        horizontalalignment='left',
          bbox=dict(facecolor='white', alpha=0.8, edgecolor='gray')
 )
+        plt.title (ID_timestamp)
         fig = plt.gcf()
-        plt.show()
+        plt.show(block=False)
         root.analysis_results = {
             "patient_id": patient_id,
             "no_trials": no_trials,
@@ -73,7 +78,8 @@ def build_gui():
             "PSE": mu_hat,
             "JND": sigma_hat,
             "figure" : fig,
-            "CI_array" : ci_array
+            "CI_array" : ci_array,
+            "ID_timestamp" : ID_timestamp
         }
 
 
@@ -88,18 +94,16 @@ def build_gui():
         os.makedirs(base_dir, exist_ok=True)
 
         # Step 2: Create timestamped subfolder
-        patient_id = results["patient_id"]
-        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        export_folder = os.path.join(base_dir, f"{patient_id}_{timestamp}")
+        export_folder = os.path.join(base_dir, results["ID_timestamp"])
         os.makedirs(export_folder)
 
         # Step 3: Save figure
         fig = results["figure"]
         fig_path = os.path.join(export_folder, "tdt_plot.png")
         fig.savefig(fig_path)
-
+        location = os.path.abspath("TDT results")
         # Step 4: Save confidence interval data
-        messagebox.showinfo("Export Successful", f"Results exported to:\n{export_folder}")
+        messagebox.showinfo("Export Successful", f"Results exported to:\n{location}")
 
 
     def on_clear():
