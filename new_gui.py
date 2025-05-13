@@ -105,19 +105,7 @@ def build_gui():
 
         ###95%CI calculations using scikits.bootstrap BCa method, Bias correction with acceleration
         ###Recommended by Wichmann and Hill (2001)
-        z0_hats = fit.calc_z0_hats([mu_hat, sigma_hat, TDT], bootstrapped_results, no_bootstraps)
-        a_hats = fit.calc_a_hats ([mu_hat, sigma_hat, TDT], isi_list, resp_list, all_isis, no_trials)
-        z_low, z_high = norm.ppf(0.05/2), norm.ppf(1 - 0.05/2)
-        pct_low = norm.cdf(z0_hats+ (z0_hats + z_low) / (1 - a_hats*(z0_hats + z_low)))
-        pct_high = norm.cdf(z0_hats+ (z0_hats + z_high) / (1 - a_hats*(z0_hats + z_high)))
-        print  ([z_low, z_high])
-        print ([pct_low, pct_high])
         boot = bootstrapped_results[["PSE","JND","TDT"]].to_numpy()  # shape (B,3)
-
-        ci_mu = bootci.ci(data=bootstrapped_results["PSE"].values, statfunction=np.mean, method='bca')
-        ci_sigma = bootci.ci(data=bootstrapped_results["JND"].values, statfunction=np.mean, method='bca')
-        ci_TDT = bootci.ci(data=bootstrapped_results["TDT"].values, statfunction=np.mean, method='bca')
-
 
         ci_low  = np.array([np.percentile(boot[:, j], 100 * 0.025)
                     for j in range(3)])
