@@ -18,6 +18,7 @@ import scikits.bootstrap as bootci
 import os
 from datetime import datetime
 from txt_parsing import extract_from_txt
+from scipy.stats import norm
 no_bootstraps = 2000 #hard-coded
 
 
@@ -91,19 +92,44 @@ def build_gui():
         root.patient_id = patient_id  
         bootstrapped_results = fit.bootstrap(mu_hat, sigma_hat, all_isis, no_bootstraps, no_trials)
 
+        """plt.figure()
+        plt.hist (bootstrapped_results ["PSE"])
+        plt.title("PSE")
+
+        plt.figure()
+        plt.hist (bootstrapped_results ["JND"])
+        plt.title("JND")
+        plt.figure()
+        plt.hist (bootstrapped_results ["TDT"])
+        plt.title("TDT") """
+
         ###95%CI calculations using scikits.bootstrap BCa method, Bias correction with acceleration
         ###Recommended by Wichmann and Hill (2001)
+        z0_hats = fit.calc_z0_hats([mu_hat, sigma_hat, TDT], bootstrapped_results, no_bootstraps)
+        a_hats = fit.calc_a_hats ([mu_hat, sigma_hat, TDT], isi_list, resp_list, all_isis, no_trials)
+        z_low, z_high = norm.ppf(0.05/2), norm.ppf(1 - 0.05/2)
+        pct_low = norm.cdf(z0_hats+ (z0_hats + z_low) / (1 - a_hats*(z0_hats + z_low)))
+        pct_high = norm.cdf(z0_hats+ (z0_hats + z_high) / (1 - a_hats*(z0_hats + z_high)))
+        print  ([z_low, z_high])
+        print ([pct_low, pct_high])
+        boot = bootstrapped_results[["PSE","JND","TDT"]].to_numpy()  # shape (B,3)
 
         ci_mu = bootci.ci(data=bootstrapped_results["PSE"].values, statfunction=np.mean, method='bca')
         ci_sigma = bootci.ci(data=bootstrapped_results["JND"].values, statfunction=np.mean, method='bca')
         ci_TDT = bootci.ci(data=bootstrapped_results["TDT"].values, statfunction=np.mean, method='bca')
 
 
-        ci_array = np.array([ci_mu, ci_sigma, ci_TDT])
+        ci_low  = np.array([np.percentile(boot[:, j], 100 * 0.025)
+                    for j in range(3)])
+        ci_high = np.array([np.percentile(boot[:, j], 100 * 0.975)
+                    for j in range(3)])
+
+        # stack into a (3×2) array: rows = [PSE, JND, TDT], cols = [low, high]
+        ci_array = np.column_stack((ci_low, ci_high))
         summary = (
-            f"TDT: {TDT:.2f} ms (95% CI: {ci_TDT[0]:.2f} – {ci_TDT[1]:.2f})\n"
-            f"PSE: {mu_hat:.2f} ms (95% CI: {ci_mu[0]:.2f} – {ci_mu[1]:.2f})\n"
-            f"JND: {sigma_hat:.2f} ms (95% CI: {ci_sigma[0]:.2f} – {ci_sigma[1]:.2f})"
+            f"TDT: {TDT:.2f} ms (95% CI: {ci_array[2,0]:.2f} – {ci_array[2,1]:.2f})\n"
+            f"PSE: {mu_hat:.2f} ms (95% CI: {ci_array[0,0]:.2f} – {ci_array[0,1]:.2f})\n"
+            f"JND: {sigma_hat:.2f} ms (95% CI: {ci_array[1,0]:.2f} – {ci_array[1,1]:.2f})"
         )
         root.results_var.set(summary)     # show results immediately
         root.update_idletasks()           # force a redraw
