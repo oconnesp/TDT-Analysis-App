@@ -130,27 +130,4 @@ def plot_with_bootstraps (bootstrapped_results, mu_hat, sigma_hat, ISIs, avg_res
     return
 
 
-def calc_z0_hats(og_params, bootstrapped_params, no_bootstraps):#OG Params and Boostrapped Params should both be [PSE JND TDT]
-    boot = bootstrapped_params.values           # shape (B,3)
-    og   = np.asarray(og_params).reshape(1, -1)  # shape (1,3)
-    # proportion of replicates less than the original estimate:
-    p_hats = (boot < og).sum(axis=0) / no_bootstraps
-    zo_hats = norm.ppf (p_hats)
-    return zo_hats
-
-def calc_a_hats (og_params, ISI_list, resp_list, ISIs, no_trials):
-    jackknifed_params = []
-    avg_resps, summed_resps, resp_counter, TDT = analyse_TDTs (ISI_list, resp_list, ISIs, no_trials)
-    for i in range (len(ISI_list)):
-        ISI_list_jk = [np.delete (arr, i) for arr in ISI_list]
-        resp_list_jk = [np.delete (arr, i) for arr in resp_list]
-        all_isis = np.unique(np.concatenate(ISI_list_jk))
-        avg_resps, summed_resps, resp_counter, TDT = analyse_TDTs (ISI_list_jk, resp_list_jk, all_isis, no_trials)
-        mu_hat_jk, sigma_hat_jk = Fit_to_Gaussian (all_isis, resp_counter, summed_resps, TDT)
-        jackknifed_params.append([mu_hat_jk, sigma_hat_jk, TDT])
-    theta_bar = np.mean(jackknifed_params, axis = 0)
-    d= jackknifed_params - theta_bar
-    a_hats = (np.sum (d**3, axis=0))/(6*(np.sum(d**2, axis = 0)**1.5))
-    return a_hats
-
 
