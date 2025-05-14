@@ -14,22 +14,33 @@ import matplotlib.pyplot as plt
 from scipy.optimize import minimize
 from scipy.stats import norm
 from scikits.bootstrap import bootstrap as bootci
+from datetime import datetime
+from txt_parsing import TestResults
 
-
-def analyse_TDTs (isi_list, resp_list, all_isis, no_trials):
+def analyse_TDTs (test_results : TestResults):
+    isi_list, resp_list, all_isis, no_trials = test_results.ISIs, test_results.responses, test_results.all_ISIs, test_results.no_trials
     length = len(all_isis)
     summed_resps = np.zeros(length) # an array of zeros for summed responses
     resp_counter = np.zeros(length) #counter for each index
     avg_resps = np.zeros (length)
-    threshold_values = np.zeros (no_trials)
+    half = no_trials // 2
+    threshold_values_L = np.zeros (half)
+    threshold_values_R = np.zeros (half)
+    L_TDT_counter = 0
+    R_TDT_counter = 0
     #find TDT 
     for n in range (no_trials):
         for i in range (len(resp_list[n]) - 2): #iterate through responses
             if ( (resp_list[n][i] == 1) and (resp_list[n][i+1] == 1) and (resp_list[n][i+2] == 1)  ): #if you get 3 "different's" in a row
-                threshold_values[n] = isi_list[n][i] #the first of the sequence of 3 "different's  #TODO alter in case of random??
+                if test_results.left_eye[n] == True:
+                    threshold_values_L [L_TDT_counter] = isi_list[n][i] #the first of the sequence of 3 "different's  #TODO alter in case of random??
+                    L_TDT_counter += 1
+                else:
+                    threshold_values_R[R_TDT_counter] = isi_list[n][i] #the first of the sequence of 3 "different's  #TODO alter in case of random??
+                    R_TDT_counter += 1
                 break
     
-    TDT = np.median(threshold_values)#TDT is the median of the thresholds for all runs
+    TDT = (np.median(threshold_values_L) + np.median(threshold_values_R))/2
 
         ### Take each response and add it into an array with indeces corresponding to each ISI
     for n in range (no_trials): 
@@ -100,9 +111,14 @@ def plot_one_bootstrap(mu_hat, sigma_hat, ISIs):
     plt.plot(x_fitted, y_fitted, color='lightgrey', linewidth=1)
     return
 
-def bootstrap (mu, sigma, ISIs, no_bootstraps, no_trials ):
-    no_ISIs = len(ISIs)
+def bootstrap (mu, sigma, no_bootstraps, test_results : TestResults):
+    no_trials = test_results.no_trials
+    ISIs = test_results.all_ISIs
+    half = no_trials //2
     ISI_list = [ISIs.copy() for _ in range(no_trials)] #TODO does this work for random trials?
+    bootstrap_results = TestResults("Bootstrap", test_results.staircase, test_results.left_eye, [], test_results.ISIs)
+    no_ISIs = len(ISIs)
+
     resp_list: list[np.ndarray] = []
     bootstrap_rows = []
     p = norm.cdf(ISIs, loc=mu, scale=sigma)#vectorised
@@ -116,7 +132,7 @@ def bootstrap (mu, sigma, ISIs, no_bootstraps, no_trials ):
             resp_list.append (np.random.rand (no_ISIs) < p )#random Bernouilli trials using probabilities from the Gaussian fit
 
 
-        avg_resps, summed_resps, resp_counter, TDT = analyse_TDTs (ISI_list, resp_list, ISIs, no_trials)#Fit a Gaussian to this bootstrapped trial
+        avg_resps, summed_resps, resp_counter, TDT = analyse_TDTs (TestResults("Bootstrap", test_results.staircase, test_results.left_eye, resp_list , test_results.ISIs))#Fit a Gaussian to this bootstrapped trial
         mu_sim, sigma_sim = Fit_to_Gaussian (ISIs, resp_counter, summed_resps, TDT)#save the parameters
         bootstrap_rows.append({"PSE": mu_sim, "JND": sigma_sim, "TDT": TDT})
 

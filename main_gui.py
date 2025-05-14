@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 import scikits.bootstrap as bootci
 import os
 from datetime import datetime
-from txt_parsing import extract_from_txt
+from txt_parsing import extract_from_txt, TestResults
 from scipy.stats import norm
 no_bootstraps = 2000 #hard-coded
 
@@ -59,21 +59,13 @@ def build_gui():
     patient_id_var = tk.StringVar()
     ttk.Entry(frm_inputs, textvariable=patient_id_var).grid(row=0, column=1, padx=5, pady=5)
 
-    ttk.Label(frm_inputs, text="Number of Trials:").grid(row=1, column=0, sticky="w")
-    trials_var = tk.StringVar()
-    ttk.Entry(frm_inputs, textvariable=trials_var).grid(row=1, column=1, padx=5, pady=5)
-
     # Frame for buttons
     frm_buttons = ttk.Frame(root, padding=10)
     frm_buttons.pack(padx=10, pady=(0, 10), fill="x")
 
     def on_run_analysis():
-        patient_id = patient_id_var.get()
-        try:
-            no_trials = int(trials_var.get())
-        except ValueError:
-            messagebox.showerror("Input error", "Please enter an integer number of trials.")
-            return
+        patient_id = patient_id_var.get().strip()           # in main_gui.py
+
         ID_timestamp = f"{patient_id}" +" " + datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         file_path = find_file_on_usb ("Results.txt")
         if not file_path:
@@ -82,26 +74,16 @@ def build_gui():
             messagebox.showerror("No Results file found.")
             return
         try:
-            isi_list, resp_list, all_isis = extract_from_txt(file_path, no_trials)
+            test_results = extract_from_txt(file_path, "soc")
         except Exception as e:
             messagebox.showerror("File error", f"An error occurred while reading the file:\n{e}")
             return
-        avg_resps, summed_resps, resp_counter, TDT = fit.analyse_TDTs(isi_list, resp_list, all_isis, no_trials)
-        mu_hat, sigma_hat = fit.Fit_to_Gaussian(all_isis, resp_counter, summed_resps, TDT)
+        avg_resps, summed_resps, resp_counter, TDT = fit.analyse_TDTs(test_results)
+        mu_hat, sigma_hat = fit.Fit_to_Gaussian(test_results.all_ISIs, resp_counter, summed_resps, TDT)
 
         root.patient_id = patient_id  
-        bootstrapped_results = fit.bootstrap(mu_hat, sigma_hat, all_isis, no_bootstraps, no_trials)
+        bootstrapped_results = fit.bootstrap(mu_hat, sigma_hat, no_bootstraps, test_results)
 
-        """plt.figure()
-        plt.hist (bootstrapped_results ["PSE"])
-        plt.title("PSE")
-
-        plt.figure()
-        plt.hist (bootstrapped_results ["JND"])
-        plt.title("JND")
-        plt.figure()
-        plt.hist (bootstrapped_results ["TDT"])
-        plt.title("TDT") """
 
         ###95%CI calculations using scikits.bootstrap BCa method, Bias correction with acceleration
         ###Recommended by Wichmann and Hill (2001)
@@ -122,7 +104,7 @@ def build_gui():
         root.results_var.set(summary)     # show results immediately
         root.update_idletasks()           # force a redraw
         plt.figure()
-        fit.plot_with_bootstraps (bootstrapped_results, mu_hat, sigma_hat, all_isis, avg_resps)
+        fit.plot_with_bootstraps (bootstrapped_results, mu_hat, sigma_hat, test_results.all_ISIs, avg_resps)
         plt.text(
         60, 0.7, summary,
         fontsize=9,
@@ -133,7 +115,7 @@ def build_gui():
         plt.show(block=False)
         root.analysis_results = { #update root attributes
             "patient_id": patient_id,
-            "no_trials": no_trials,
+            "no_trials": test_results.no_trials,
             "TDT": TDT,
             "PSE": mu_hat,
             "JND": sigma_hat,
@@ -172,7 +154,6 @@ def build_gui():
         
         # Clear input fields
         root.patient_id_var.set("")
-        root.trials_var.set("")
         
         # Clear stored results if they exist
         if hasattr(root, "analysis_results"):
@@ -192,7 +173,6 @@ def build_gui():
     # Store state
     root.results_var = results_var
     root.patient_id_var = patient_id_var
-    root.trials_var = trials_var
 
     return root
 
