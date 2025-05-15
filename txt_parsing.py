@@ -24,7 +24,7 @@ class TestResults:
             self.all_ISIs = np.array([], dtype=float)
         self.no_trials = len (ISIs)
 
-def extract_from_txt (filename, patient_ID):
+def extract_from_txt (filename, patient_ID, flags : list[bool]):#flags is LEye,REye,staircase,random
     resp_list = []##response and ISI lists, each contain an array per trial
     isi_list = []
     staircase_list = []
@@ -70,7 +70,14 @@ def extract_from_txt (filename, patient_ID):
         else: left_eye = False
         m_resp  = resp_pattern.search(blk)
         m_tdt   = tdt_pattern.search(blk)
+
         if not all([m_start, m_type, m_eye, m_resp, m_tdt]):
+            continue
+        
+        #Filter for flags
+        if (flags[0] == False and left_eye == True) or (flags[1] == False and left_eye == False):
+            continue
+        if (flags[2] == False and staircase == True) or (flags[3] == False and staircase == False):
             continue
 
         # Parse timestamp

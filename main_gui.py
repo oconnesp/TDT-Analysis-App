@@ -22,6 +22,8 @@ from scipy.stats import norm
 no_bootstraps = 2000 #hard-coded
 
 
+
+
 def find_file_on_usb(filename="Results.txt"):#Find Results file
     from pathlib import Path
     potential_mounts = []
@@ -52,29 +54,62 @@ def build_gui():
     root.resizable(False, False)
 
     # Frame for user inputs
-    frm_inputs = ttk.LabelFrame(root, text="Input Parameters", padding=12)
+    frm_inputs = ttk.LabelFrame(root, text="Input Patient ID", padding=12)
     frm_inputs.pack(padx=10, pady=10, fill="x")
 
     ttk.Label(frm_inputs, text="Patient ID:").grid(row=0, column=0, sticky="w")
     patient_id_var = tk.StringVar()
     ttk.Entry(frm_inputs, textvariable=patient_id_var).grid(row=0, column=1, padx=5, pady=5)
 
-    # Frame for buttons
-    frm_buttons = ttk.Frame(root, padding=10)
-    frm_buttons.pack(padx=10, pady=(0, 10), fill="x")
+    # Frame for controls
+    frm_controls = ttk.Frame(root, padding=10)
+    frm_controls.pack(padx=10, pady=(0, 10), fill="x")
+
+    frm_controls.columnconfigure(0, weight=1)
+    frm_controls.columnconfigure(1, weight=1)
+
+    #Left half: Buttons frame
+    frm_buttons = ttk.LabelFrame(frm_controls, text="Actions")
+    frm_buttons.grid(row=0, column=1, sticky="nsew", padx=(0,5))
+
+
+    frm_checks = ttk.LabelFrame(frm_controls, text="Select which trials to include:")
+    frm_checks.grid(row=0, column=0, sticky="nsew", padx=(5,0))
+
+    #checkboxes
+    buttons = []
+    check_vars = []
+    flags = []
+    for label in ("Left Eye", "Right Eye", "Staircase", "Random"):
+        var = tk.BooleanVar()
+        cb  = tk.Checkbutton(frm_checks, text=label, variable=var)
+        cb.pack(anchor="w", pady=2)
+        check_vars.append(var)
+        buttons.append(cb)
 
     def on_run_analysis():
         patient_id = patient_id_var.get().strip()           # in main_gui.py
-
+        for i in range (4):
+            flags = [var.get() for var in check_vars] #get the values of the checkboxes
+        
+        if (flags [0] == False and flags[1] == False):
+            messagebox.showerror("Error", "Choose left eye, right eye, or both")
+            on_clear()
+            return
+        if (flags [2] == False and flags[3] == False):
+            messagebox.showerror("Error", "Choose staircase, random, or both")
+            on_clear()
+            return
         ID_timestamp = f"{patient_id}" +" " + datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         file_path = find_file_on_usb ("Results.txt")
         if not file_path:
             file_path = prompt_user_for_file()
         if not file_path:
-            messagebox.showerror("No Results file found.")
+            messagebox.showerror("Error", "No Results file found.")
+            on_clear()
             return
         try:
-            test_results = extract_from_txt(file_path, "soc")
+            test_results = extract_from_txt(file_path, "soc", flags)
         except Exception as e:
             messagebox.showerror("File error", f"An error occurred while reading the file:\n{e}")
             return
@@ -155,13 +190,15 @@ def build_gui():
         # Clear input fields
         root.patient_id_var.set("")
         
+        for button in buttons:
+            button.deselect()
+
         # Clear stored results if they exist
         if hasattr(root, "analysis_results"):
             del root.analysis_results
-
-    ttk.Button(frm_buttons, text="Run Analysis", command=on_run_analysis).pack(fill="x", pady=5)
-    ttk.Button(frm_buttons, text="Export Results", command=on_export).pack(fill="x", pady=5)
-    ttk.Button(frm_buttons, text="Clear Results", command=on_clear).pack(fill="x", pady=5)
+    ttk.Button(frm_buttons, text="Run Analysis", command=on_run_analysis).pack( fill = "x", pady=5)
+    ttk.Button(frm_buttons, text="Export Results", command=on_export).pack( fill = "x", pady=5)
+    ttk.Button(frm_buttons, text="Clear Results", command=on_clear).pack( fill = "x", pady=5)
 
     # Frame for results display
     frm_output = ttk.LabelFrame(root, text="Results", padding=12)
