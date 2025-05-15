@@ -34,7 +34,7 @@ def find_file_on_usb(filename="Results.txt"):#Find Results file
     else:  # macOS/Linux
         potential_mounts += ["/Volumes", "/media"]
 
-    for mount in potential_mounts:
+    for mount in potential_mounts:#looking for the Quest
         root_path = Path(mount)
         if root_path.exists():
             for path in root_path.rglob(filename):
@@ -79,7 +79,6 @@ def build_gui():
     #checkboxes
     buttons = []
     check_vars = []
-    flags = []
     for label in ("Left Eye", "Right Eye", "Staircase", "Random"):
         var = tk.BooleanVar()
         cb  = tk.Checkbutton(frm_checks, text=label, variable=var)
@@ -87,11 +86,13 @@ def build_gui():
         check_vars.append(var)
         buttons.append(cb)
 
+        ##Upon Pressing run anlysis
+
     def on_run_analysis():
-        patient_id = patient_id_var.get().strip()           # in main_gui.py
+        patient_id = patient_id_var.get().strip()       
         for i in range (4):
             flags = [var.get() for var in check_vars] #get the values of the checkboxes
-        
+        #Make sure at least one eye and paradigm has been selected
         if (flags [0] == False and flags[1] == False):
             messagebox.showerror("Error", "Choose left eye, right eye, or both")
             on_clear()
@@ -120,7 +121,7 @@ def build_gui():
         bootstrapped_results = fit.bootstrap(mu_hat, sigma_hat, no_bootstraps, test_results)
 
 
-        ###95%CI calculations using scikits.bootstrap BCa method, Bias correction with acceleration
+        ###95%CI using quantile method
         ###Recommended by Wichmann and Hill (2001)
         boot = bootstrapped_results[["PSE","JND","TDT"]].to_numpy()  # shape (B,3)
 
@@ -166,15 +167,15 @@ def build_gui():
             messagebox.showerror("Error", "No results to export. Please run analysis first.")
             return
 
-        # Step 1: Create base folder
+        #Create base folder
         base_dir = "TDT results"
         os.makedirs(base_dir, exist_ok=True)
 
-        # Step 2: Create timestamped subfolder
+        #Create timestamped subfolder
         export_folder = os.path.join(base_dir, results["ID_timestamp"])
         os.makedirs(export_folder)
 
-        # Step 3: Save figure
+        #Save figure
         fig = results["figure"]
         fig_path = os.path.join(export_folder, "tdt_plot.png")
         fig.savefig(fig_path)
@@ -190,6 +191,7 @@ def build_gui():
         # Clear input fields
         root.patient_id_var.set("")
         
+        #Clear buttons
         for button in buttons:
             button.deselect()
 

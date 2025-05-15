@@ -74,7 +74,7 @@ def extract_from_txt (filename, patient_ID, flags : list[bool]):#flags is LEye,R
         if not all([m_start, m_type, m_eye, m_resp, m_tdt]):
             continue
         
-        #Filter for flags
+        #Filter for flags, removing unwanted trials
         if (flags[0] == False and left_eye == True) or (flags[1] == False and left_eye == False):
             continue
         if (flags[2] == False and staircase == True) or (flags[3] == False and staircase == False):
@@ -98,7 +98,8 @@ def extract_from_txt (filename, patient_ID, flags : list[bool]):#flags is LEye,R
         if staircase == False:
             isi_array.sort()
         
-        resp_array[resp_array == 2] = 1
+        resp_array[resp_array == 2] = 1   #2 signifies did not respond, which signifies the trial finished necause the TDT had been found. Can assume the rest of the ISIs are 1s as they are
+        #greater than the TDT
 
 
         staircase_list.append(staircase)
