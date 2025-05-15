@@ -4,8 +4,12 @@ GUI Main Script
 for Reilly Lab TDT Analysis
 Author: Spencer O'Connell
 
-"""""
 
+For use with the TDT Quest App v0.94
+
+"""""
+##TODO add variations to title
+#
 
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
@@ -52,6 +56,7 @@ def build_gui():
     root.title("TDT Patient Analysis App")
     root.geometry("600x400")
     root.resizable(False, False)
+    root.iconbitmap("Calculator.ico")
 
     # Frame for user inputs
     frm_inputs = ttk.LabelFrame(root, text="Input Patient ID", padding=12)
@@ -110,7 +115,7 @@ def build_gui():
             on_clear()
             return
         try:
-            test_results = extract_from_txt(file_path, "soc", flags)
+            test_results = extract_from_txt(file_path, patient_id, flags)
         except Exception as e:
             messagebox.showerror("File error", f"An error occurred while reading the file:\n{e}")
             return
@@ -132,7 +137,12 @@ def build_gui():
 
         # stack into a (3×2) array: rows = [PSE, JND, TDT], cols = [low, high]
         ci_array = np.column_stack((ci_low, ci_high))
-        summary = (
+
+        type_string = ""
+        for i, label in enumerate (["Left Eye", "Right Eye", "Staircase", "Random"]):
+            if flags[i] == True:
+                type_string += label + " "
+        summary = type_string + "\n" + (
             f"TDT: {TDT:.2f} ms (95% CI: {ci_array[2,0]:.2f} – {ci_array[2,1]:.2f})\n"
             f"PSE: {mu_hat:.2f} ms (95% CI: {ci_array[0,0]:.2f} – {ci_array[0,1]:.2f})\n"
             f"JND: {sigma_hat:.2f} ms (95% CI: {ci_array[1,0]:.2f} – {ci_array[1,1]:.2f})"
@@ -142,7 +152,7 @@ def build_gui():
         plt.figure()
         fit.plot_with_bootstraps (bootstrapped_results, mu_hat, sigma_hat, test_results.all_ISIs, avg_resps)
         plt.text(
-        60, 0.7, summary,
+        0, 0.8, summary,
         fontsize=9,
          bbox=dict(facecolor='white', alpha=0.8, edgecolor='gray')
 )
@@ -180,7 +190,6 @@ def build_gui():
         fig_path = os.path.join(export_folder, "tdt_plot.png")
         fig.savefig(fig_path)
         location = os.path.abspath("TDT results")
-        # Step 4: Save confidence interval data
         messagebox.showinfo("Export Successful", f"Results exported to:\n{location}")
 
 
