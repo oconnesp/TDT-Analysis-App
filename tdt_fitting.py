@@ -25,10 +25,10 @@ def analyse_TDTs (test_results : TestResults):
     avg_resps = np.zeros (length)
     left_trials = 0
     for i in range (test_results.no_trials):
-        if test_results.left_eye[i] == True:
+        if test_results.left_eye[i] == True:#how many trials use the left eye
             left_trials += 1
     threshold_values_L = np.zeros (left_trials)
-    threshold_values_R = np.zeros (test_results.no_trials - left_trials)
+    threshold_values_R = np.zeros (test_results.no_trials - left_trials) 
     L_TDT_counter = 0
     R_TDT_counter = 0
     #find TDT 
@@ -36,17 +36,21 @@ def analyse_TDTs (test_results : TestResults):
         for i in range (len(resp_list[n]) - 2): #iterate through responses
             if ( (resp_list[n][i] == 1) and (resp_list[n][i+1] == 1) and (resp_list[n][i+2] == 1)  ): #if you get 3 "different's" in a row
                 if test_results.left_eye[n] == True:
-                    threshold_values_L [L_TDT_counter] = isi_list[n][i] #the first of the sequence of 3 "different's  #TODO alter in case of random??
+                    threshold_values_L [L_TDT_counter] = isi_list[n][i] #the first of the sequence of 3 "different's 
                     L_TDT_counter += 1
                 else:
-                    threshold_values_R[R_TDT_counter] = isi_list[n][i] #the first of the sequence of 3 "different's  #TODO alter in case of random??
+                    threshold_values_R[R_TDT_counter] = isi_list[n][i] #the first of the sequence of 3 "different's  
                     R_TDT_counter += 1
                 break
+
+    #Don't take the mean of the L and R values if you're only testing one eye
     if (len (threshold_values_L) == 0):
         TDT = np.median(threshold_values_R)
 
     elif (len(threshold_values_R) == 0):
         TDT = np.median(threshold_values_L)
+
+
 
     else:
         TDT = (np.median(threshold_values_L) + np.median(threshold_values_R))/2
