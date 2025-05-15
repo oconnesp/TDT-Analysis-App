@@ -19,14 +19,21 @@ import pandas as pd
 from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
 import scikits.bootstrap as bootci
-import os
+import os, sys
 from datetime import datetime
 from txt_parsing import extract_from_txt, TestResults
 from scipy.stats import norm
 no_bootstraps = 2000 #hard-coded
 
 
-
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    if getattr(sys, 'frozen', False):
+        # PyInstaller unpacks to a temp folder stored in _MEIPASS
+        base_path = sys._MEIPASS
+    else:
+        base_path = os.path.dirname(__file__)
+    return os.path.join(base_path, relative_path)
 
 def find_file_on_usb(filename="Results.txt"):#Find Results file
     from pathlib import Path
@@ -56,7 +63,8 @@ def build_gui():
     root.title("TDT Patient Analysis App")
     root.geometry("600x400")
     root.resizable(False, False)
-    root.iconbitmap("Calculator.ico")
+    icon_path = resource_path("Calculator.ico")
+    root.iconbitmap(icon_path)
 
     # Frame for user inputs
     frm_inputs = ttk.LabelFrame(root, text="Input Patient ID", padding=12)
