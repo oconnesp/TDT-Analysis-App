@@ -41,11 +41,12 @@ def extract_from_txt (filename, patient_ID, flags : list[bool]):#flags is LEye,R
     id_pattern = re.compile(
     rf'Participant ID:\s*{re.escape(patient_ID)}\b',
     re.IGNORECASE)
-    start_pattern = re.compile(r'VisualTDT Test Started Timestamp:\s*(.+)')
-    type_pattern  = re.compile(r'Test Type:\s*(.+)')
-    eye_pattern   = re.compile(r'Eye Tested:\s*(.+)')
-    resp_pattern  = re.compile(r'Response:\s*([0-2](?:\s*,\s*[0-2])*)')
-    tdt_pattern   = re.compile(r'TDTArray:\s*([0-9\.]+(?:\s*,\s*[0-9\.]+)*)')
+    start_pattern = re.compile(r'VisualTDT Test Started Timestamp:\s*(.+)', re.IGNORECASE)
+    type_pattern  = re.compile(r'Test Type:\s*(.+)', re.IGNORECASE)
+    eye_pattern   = re.compile(r'Eye Tested:\s*(.+)', re.IGNORECASE)
+    resp_pattern  = re.compile(r'Response:\s*([0-2](?:\s*,\s*[0-2])*)', re.IGNORECASE)
+    tdt_pattern   = re.compile(r'TDTArray:\s*([0-9\.]+(?:\s*,\s*[0-9\.]+)*)', re.IGNORECASE)
+    inclusion_pattern = re.compile(r'Include test in analysis:\s*(YES|NO)\b', re.IGNORECASE)
 
     # Compute cutoff for last 7 days
     now = datetime.now()
@@ -62,6 +63,10 @@ def extract_from_txt (filename, patient_ID, flags : list[bool]):#flags is LEye,R
     for i, blk in enumerate(patient_blocks):
         m_start = start_pattern.search(blk)
         m_type  = type_pattern.search(blk)
+        m_inclusion = inclusion_pattern.search(blk)
+
+        if m_inclusion.group(1).strip() == "NO":
+            continue
         if m_type.group(1).strip() == "Stepped Test":
             staircase = True
         else: staircase = False
@@ -71,6 +76,7 @@ def extract_from_txt (filename, patient_ID, flags : list[bool]):#flags is LEye,R
         else: left_eye = False
         m_resp  = resp_pattern.search(blk)
         m_tdt   = tdt_pattern.search(blk)
+
 
         if not all([m_start, m_type, m_eye, m_resp, m_tdt]):
             continue
@@ -83,14 +89,14 @@ def extract_from_txt (filename, patient_ID, flags : list[bool]):#flags is LEye,R
 
         # Parse timestamp
         start_str = m_start.group(1).strip()
-        try:
+        """try:
             ts = datetime.strptime(start_str, '%A, %B %d, %Y %I:%M:%S %p')
         except ValueError:
             ts = datetime.strptime(start_str, '%d/%m/%Y %H:%M:%S')
 
         # Discard if older than 7 days
         if ts < cutoff:
-            continue
+            continue """     #removing (temporarily?)
 
         # Convert arrays
         resp_array = np.array([int(x) for x in m_resp.group(1).split(',')])
