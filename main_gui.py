@@ -99,7 +99,7 @@ def build_gui():
         check_vars.append(var)
         buttons.append(cb)
 
-        ##Upon Pressing run anlysis
+        ##Upon Pressing run analysis
 
     def on_run_analysis():
         patient_id = patient_id_var.get().strip()       
