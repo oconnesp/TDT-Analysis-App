@@ -34,7 +34,6 @@ def extract_from_txt (filename, patient_ID, flags : list[bool]):#flags is LEye,R
     with open (filename, "r",encoding="utf-8") as file:
         text=strip_invisibles(file.read()).replace("â€‹", "")#For some reason the .txt file
         #was adding this as a suffix to the patient IDs
-        print (text)
 
     blocks = re.split(r'-{83,}\s*\n', text)#boundaries per block
 
