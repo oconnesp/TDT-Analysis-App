@@ -5,9 +5,10 @@ from typing import List, Dict, Any
 from tkinter import messagebox
 from dataclasses import dataclass
 
-_INVISIBLE = re.compile(r'[\u200B-\u200D\uFEFF]')   # ZWSP, ZWNJ, ZWJ, BOM
+
 def strip_invisibles(s: str) -> str:
     """Remove zero-width and BOM characters."""
+    _INVISIBLE = re.compile(r'[\u200B-\u200D\uFEFF]')   # ZWSP, ZWNJ, ZWJ, BOM
     return _INVISIBLE.sub('', s)
 
 

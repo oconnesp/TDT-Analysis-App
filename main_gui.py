@@ -23,8 +23,8 @@ import os, sys
 from datetime import datetime
 from txt_parsing import extract_from_txt, TestResults
 from scipy.stats import norm
+from analyse_head_movements import analyse_head_movements, parse_head_movements
 no_bootstraps = 2000 #hard-coded
-
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -52,10 +52,10 @@ def find_file_on_usb(filename="Results.txt"):#Find Results file
                 return str(path.resolve())
     return None
 #otherwise user can open file manually
-def prompt_user_for_file():
+def prompt_user_for_file(prompt):
     root = tk.Tk()
     root.withdraw()
-    return filedialog.askopenfilename(title="Select Results.txt file", filetypes=[("Text Files", "*.txt")])
+    return filedialog.askopenfilename(title=prompt, filetypes=[("Text Files", "*.txt")])
 
 
 def build_gui():
@@ -92,7 +92,7 @@ def build_gui():
     #checkboxes
     buttons = []
     check_vars = []
-    for label in ("Left Eye", "Right Eye", "Staircase", "Random"):
+    for label in ("Left Eye", "Right Eye", "Staircase", "Random", "Analyse Head Movement"):
         var = tk.BooleanVar()
         cb  = tk.Checkbutton(frm_checks, text=label, variable=var)
         cb.pack(anchor="w", pady=2)
@@ -114,10 +114,24 @@ def build_gui():
             messagebox.showerror("Error", "Choose staircase, random, or both")
             on_clear()
             return
+        
+        if flags [4] == True:
+            file_path = prompt_user_for_file("Select Head Rotation File")
+            if not file_path:
+                messagebox.showerror("Error", "No Head Rotation file found.")
+                on_clear()
+                return
+            try:
+                rotation_results = parse_head_movements(file_path, patient_id)
+            except Exception as e:
+                messagebox.showerror("File error", f"An error occurred while reading the results file:\n{e}")
+                return
+            return
+
         ID_timestamp = f"{patient_id}" +" " + datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         file_path = find_file_on_usb ("Results.txt")
         if not file_path:
-            file_path = prompt_user_for_file()
+            file_path = prompt_user_for_file("Select Results.txt File")
         if not file_path:
             messagebox.showerror("Error", "No Results file found.")
             on_clear()
@@ -125,7 +139,7 @@ def build_gui():
         try:
             test_results = extract_from_txt(file_path, patient_id, flags)
         except Exception as e:
-            messagebox.showerror("File error", f"An error occurred while reading the file:\n{e}")
+            messagebox.showerror("File error", f"An error occurred while reading the results file:\n{e}")
             return
         avg_resps, summed_resps, resp_counter, TDT = fit.analyse_TDTs(test_results)
         mu_hat, sigma_hat = fit.Fit_to_Gaussian(test_results.all_ISIs, resp_counter, summed_resps, TDT)
