@@ -23,7 +23,7 @@ import os, sys
 from datetime import datetime
 from txt_parsing import extract_from_txt, TestResults
 from scipy.stats import norm
-from analyse_head_movements import analyse_head_movements, parse_head_movements
+from analyse_head_movements import parse_head_movements
 no_bootstraps = 2000 #hard-coded
 
 def resource_path(relative_path):
@@ -126,7 +126,6 @@ def build_gui():
             except Exception as e:
                 messagebox.showerror("File error", f"An error occurred while reading the results file:\n{e}")
                 return
-            return
 
         ID_timestamp = f"{patient_id}" +" " + datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         file_path = find_file_on_usb ("Results.txt")
