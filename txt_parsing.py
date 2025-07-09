@@ -108,7 +108,7 @@ def extract_from_txt (filename, patient_ID, flags : list[bool]):#flags is LEye,R
         #greater than the TDT
 
         if len(isi_array) > len(resp_array):
-            resp_array.extend([1] * (len(isi_array) - len(resp_array)))
+            resp_array = np.concatenate([resp_array, np.ones(len(isi_array) - len(resp_array), dtype=resp_array.dtype)])
 
         staircase_list.append(staircase)
         left_eye_list.append (left_eye)
