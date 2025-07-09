@@ -107,6 +107,8 @@ def extract_from_txt (filename, patient_ID, flags : list[bool]):#flags is LEye,R
         resp_array[resp_array == 2] = 1   #2 signifies did not respond, which signifies the trial finished necause the TDT had been found. Can assume the rest of the ISIs are 1s as they are
         #greater than the TDT
 
+        if len(isi_array) > len(resp_array):
+            resp_array.extend([1] * (len(isi_array) - len(resp_array)))
 
         staircase_list.append(staircase)
         left_eye_list.append (left_eye)
