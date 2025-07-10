@@ -92,7 +92,7 @@ def build_gui():
     #checkboxes
     buttons = []
     check_vars = []
-    for label in ("Left Eye", "Right Eye", "Staircase", "Random"):
+    for label in ("Left Eye", "Right Eye", "Staircase", "Random", "Include First Trial"):
         var = tk.BooleanVar()
         cb  = tk.Checkbutton(frm_checks, text=label, variable=var)
         cb.pack(anchor="w", pady=2)
@@ -103,7 +103,7 @@ def build_gui():
 
     def on_run_analysis():
         patient_id = patient_id_var.get().strip()       
-        for i in range (4):
+        for i in range (5):
             flags = [var.get() for var in check_vars] #get the values of the checkboxes
         #Make sure at least one eye and paradigm has been selected
         if (flags [0] == False and flags[1] == False):
@@ -147,7 +147,7 @@ def build_gui():
         ci_array = np.column_stack((ci_low, ci_high))
 
         type_string = ""
-        for i, label in enumerate (["Left Eye", "Right Eye", "Staircase", "Random"]):
+        for i, label in enumerate (["Left Eye", "Right Eye", "Staircase", "Random", "First Trial Included"]):
             if flags[i] == True:
                 type_string += label + " "
         summary = type_string + "\n" + (
