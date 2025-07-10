@@ -40,7 +40,7 @@ def extract_from_txt (filename, patient_ID, flags : list[bool]):#flags is LEye,R
     id_pattern = re.compile(
     rf'Participant ID:\s*{re.escape(patient_ID)}\b',
     re.IGNORECASE)
-    start_pattern = re.compile(r'VisualTDT Test Started Timestamp:\s*(.+)', re.IGNORECASE)
+    start_pattern = start_pattern = re.compile(r'VisualTDT Test(?: No\.\d+)? Started Timestamp:\s*(.+)', re.IGNORECASE)
     type_pattern  = re.compile(r'Test Type:\s*(.+)', re.IGNORECASE)
     eye_pattern   = re.compile(r'Eye Tested:\s*(.+)', re.IGNORECASE)
     resp_pattern  = re.compile(r'Response:\s*([0-2](?:\s*,\s*[0-2])*)', re.IGNORECASE)
@@ -60,6 +60,8 @@ def extract_from_txt (filename, patient_ID, flags : list[bool]):#flags is LEye,R
                 patient_blocks.append(blk)
     #now have a list of blocks to look at
     for i, blk in enumerate(patient_blocks):
+        if i == 1 and flags[4] == False:#if its the first block and the user wants to exclude a catch trial
+            continue
         m_start = start_pattern.search(blk)
         m_type  = type_pattern.search(blk)
         m_inclusion = inclusion_pattern.search(blk)
