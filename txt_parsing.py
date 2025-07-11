@@ -60,7 +60,7 @@ def extract_from_txt (filename, patient_ID, flags : list[bool]):#flags is LEye,R
                 patient_blocks.append(blk)
     #now have a list of blocks to look at
     for i, blk in enumerate(patient_blocks):
-        if i == 1 and flags[4] == False:#if its the first block and the user wants to exclude a catch trial
+        if i == 0 and flags[4] == False:#if its the first block and the user wants to exclude a catch trial
             continue
         m_start = start_pattern.search(blk)
         m_type  = type_pattern.search(blk)
