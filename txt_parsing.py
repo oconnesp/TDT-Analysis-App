@@ -36,9 +36,9 @@ def extract_from_txt (filename, patient_ID, flags : list[bool]):#flags is LEye,R
         #was adding this as a suffix to the patient IDs
 
     blocks = re.split(r'-{83,}\s*\n', text)#boundaries per block
-
+    clean_id = strip_invisibles(patient_ID)
     id_pattern = re.compile(
-    rf'Participant ID:\s*{re.escape(patient_ID)}\b',
+    rf'Participant ID:\s*{re.escape(clean_id)}\b',
     re.IGNORECASE)
     start_pattern = start_pattern = re.compile(r'VisualTDT Test(?: No\.\d+)? Started Timestamp:\s*(.+)', re.IGNORECASE)
     type_pattern  = re.compile(r'Test Type:\s*(.+)', re.IGNORECASE)
