@@ -79,7 +79,7 @@ def extract_from_txt (filename, patient_ID, flags : list[bool]):#flags is LEye,R
         m_tdt   = tdt_pattern.search(blk)
 
 
-        if not all([m_start, m_type, m_eye, m_resp, m_tdt]):
+        if not all([m_type, m_eye, m_resp, m_tdt]):
             continue
         
         #Filter for flags, removing unwanted trials
@@ -89,7 +89,8 @@ def extract_from_txt (filename, patient_ID, flags : list[bool]):#flags is LEye,R
             continue
 
         # Parse timestamp
-        start_str = m_start.group(1).strip()
+        if m_start:
+            start_str = m_start.group(1).strip()
         """try:
             ts = datetime.strptime(start_str, '%A, %B %d, %Y %I:%M:%S %p')
         except ValueError:
