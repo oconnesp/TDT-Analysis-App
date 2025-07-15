@@ -6,6 +6,11 @@ from txt_parsing import strip_invisibles
 import re
 from datetime import datetime
 from pyquaternion import Quaternion
+from scipy.spatial.transform import Rotation as R
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib.animation import FuncAnimation
+
 def parse_head_rotation_data(participant_id: str, filename: str):
     with open(filename, 'r', encoding='utf-8') as file:
         text=strip_invisibles(file.read()).replace("â€‹", "")
@@ -59,18 +64,55 @@ def parse_head_rotation_data(participant_id: str, filename: str):
 
 def analyse_head_movements(quaternion_lists):
     """Analyse head movements to calculate the difference in head rotation at the start vs at the end"""
-    #arbitrarily going to choose the fifth and fifth-last seconds as samples
+    # arbitrarily going to choose the fifth and fifth-last seconds as samples
     initial_head_rotations = []
     final_head_rotations = []
     for trial in quaternion_lists:
         initial_head_rotations.append(trial[4])
         final_head_rotations.append(trial[-5])
     euler_angle_list = []
-    for i, (q1, q2) in enumerate(zip(initial_head_rotations, final_head_rotations)):
-        delta_q = q1.inverse() * q2
-        yaw, pitch, roll = delta_q.yaw_pitch_roll()
-        euler_angle_list.append((yaw, pitch, roll))
+    for q1, q2 in zip(initial_head_rotations, final_head_rotations):
+        delta_q = q1.inverse * q2
+        yaw, pitch, roll = map(float, np.degrees(delta_q.yaw_pitch_roll))
+        # Store as a tuple with labels for readability
+        euler_angle_list.append({
+            'yaw': yaw,
+            'pitch': pitch,
+            'roll': roll
+        })
     return euler_angle_list
 
 
-    
+
+
+def animate_head_rotations (quaternion_list):
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    ax.set_xlim([-1, 1])
+    ax.set_ylim([-1, 1])
+    ax.set_zlim([-1, 1])
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+    def update(i):
+        ax.cla()  # Clear previous arrows and reset axis
+
+        ax.set_xlim([-1, 1])
+        ax.set_ylim([-1, 1])
+        ax.set_zlim([-1, 1])
+        ax.set_xlabel('X')
+        ax.set_ylabel('Y')
+        ax.set_zlabel('Z')
+
+        R = quaternion_list[i].rotation_matrix
+        x_axis = R[:, 0]
+        y_axis = R[:, 1]
+        z_axis = R[:, 2]
+
+        ax.quiver(0, 0, 0, *x_axis, color='r', length=0.8)
+        ax.quiver(0, 0, 0, *y_axis, color='g', length=0.8)
+        ax.quiver(0, 0, 0, *z_axis, color='b', length=0.8)
+        ax.set_title(f"Frame {i}")
+    ani = FuncAnimation(fig, update, frames=len(quaternion_list), interval=500)
+    plt.show()
+    return ani
