@@ -76,6 +76,7 @@ def extract_from_txt (filename, patient_ID, flags : list[bool]):#flags is LEye,R
             left_eye = True
         else: left_eye = False
         m_resp  = resp_pattern.search(blk)
+        
         m_tdt   = tdt_pattern.search(blk)
 
 
@@ -102,7 +103,7 @@ def extract_from_txt (filename, patient_ID, flags : list[bool]):#flags is LEye,R
 
         # Convert arrays
         resp_array = np.array([int(x) for x in m_resp.group(1).split(',')])
-
+        resp_array [-1] = 1
         isi_array  = np.array([float(x) for x in m_tdt.group(1).split(',')]) * 1000
         if staircase == False:
             isi_array.sort()
