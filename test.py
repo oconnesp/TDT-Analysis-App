@@ -2,4 +2,4 @@ from analyse_head_movements import parse_head_rotation_data, analyse_head_moveme
 
 time_list,quat_list, = parse_head_rotation_data("1202507151601", r"C:\Users\OCONNESP\Downloads\rotation  test.txt")
 print(analyse_head_movements(quat_list))
-ani = animate_head_rotations(quat_list[1])
+animate_head_rotations(quat_list[1])

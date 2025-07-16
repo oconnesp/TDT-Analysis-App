@@ -10,6 +10,9 @@ from scipy.spatial.transform import Rotation as R
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.animation import FuncAnimation
+import pyvista as pv
+import time
+import vtk
 
 def parse_head_rotation_data(participant_id: str, filename: str):
     with open(filename, 'r', encoding='utf-8') as file:
@@ -82,37 +85,52 @@ def analyse_head_movements(quaternion_lists):
         })
     return euler_angle_list
 
+def quaternion_to_vtk_transform(q):
+    """Convert a scipy-style quaternion into a vtkTransform."""
+    # Build a 4×4 VTK matrix
+    mat = vtk.vtkMatrix4x4()
+    R = q.rotation_matrix  # shape (3,3)
+    # copy the 3×3
+    for i in range(3):
+        for j in range(3):
+            mat.SetElement(i, j, float(R[i, j]))
+    # bottom row & right column for affine
+    mat.SetElement(3, 3, 1.0)
+    # wrap it in a vtkTransform
+    transform = vtk.vtkTransform()
+    transform.SetMatrix(mat)
+    return transform
+
+
+def animate_head_rotations(quaternion_list, pause=0.5):
+    plotter = pv.Plotter()
+    plotter.set_background("white")
+
+    # Add a single cone actor
+    cone  = pv.Cone(center=(0, 0, 0),
+                    direction=(1, 0, 0),
+                    height=1.0,
+                    radius=0.3)
+    actor = plotter.add_mesh(cone, color="lightblue")
+
+    # Camera
+    plotter.camera.position    = (5, 0, 2)
+    plotter.camera.up          = (0, 0, 1)
+    plotter.camera.focal_point = (0, 0, 0)
+
+    # Initialize the interactor
+    plotter.show(auto_close=False, interactive_update=True)
+
+    for q in quaternion_list:
+        # Build & apply a full 3×3 transform
+        tf = quaternion_to_vtk_transform(q)
+        actor.SetUserTransform(tf)
+
+        # Push the new pose to screen
+        plotter.update()
+        time.sleep(pause)
+
+    plotter.close()
 
 
 
-def animate_head_rotations (quaternion_list):
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-    ax.set_xlim([-1, 1])
-    ax.set_ylim([-1, 1])
-    ax.set_zlim([-1, 1])
-    ax.set_xlabel('X')
-    ax.set_ylabel('Y')
-    ax.set_zlabel('Z')
-    def update(i):
-        ax.cla()  # Clear previous arrows and reset axis
-
-        ax.set_xlim([-1, 1])
-        ax.set_ylim([-1, 1])
-        ax.set_zlim([-1, 1])
-        ax.set_xlabel('X')
-        ax.set_ylabel('Y')
-        ax.set_zlabel('Z')
-
-        R = quaternion_list[i].rotation_matrix
-        x_axis = R[:, 0]
-        y_axis = R[:, 1]
-        z_axis = R[:, 2]
-
-        ax.quiver(0, 0, 0, *x_axis, color='r', length=0.8)
-        ax.quiver(0, 0, 0, *y_axis, color='g', length=0.8)
-        ax.quiver(0, 0, 0, *z_axis, color='b', length=0.8)
-        ax.set_title(f"Frame {i}")
-    ani = FuncAnimation(fig, update, frames=len(quaternion_list), interval=500)
-    plt.show()
-    return ani
