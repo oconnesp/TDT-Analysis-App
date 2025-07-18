@@ -125,5 +125,4 @@ def extract_from_txt (filename, patient_ID, flags : list[bool]):#flags is LEye,R
         messagebox.showerror("Error", f"No data found for Participant ID: {patient_ID} within the last {expiry} days")
         raise ValueError(f"No data found for Participant ID: {patient_ID} within the last {expiry} days")
     
-
     return test_results

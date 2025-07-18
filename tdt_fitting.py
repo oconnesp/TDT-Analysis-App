@@ -1,12 +1,7 @@
-""""
-tdt_fitting.py
+"""Extracts trials from CSV, fits to a cumulative Gaussian, and returns statistics.
 
-extracts trials from csv, fits to a cumulative gaussian
-returns statistics
-
+This module provides functions to analyze TDTs, fit data to a cumulative Gaussian, and perform bootstrapping for statistical analysis.
 """
-import sys
-from pathlib import Path
 import random
 import numpy as np
 import pandas as pd
@@ -58,6 +53,8 @@ def analyse_TDTs (test_results : TestResults):
         ### Take each response and add it into an array with indeces corresponding to each ISI
     for n in range (no_trials): 
         for i in range (len(isi_list[n])):
+            #if isi_list[n] has more than one zero, average the first num zero responses
+            #change ISI list [n] so that every entry is unique and ajust size of resp_list
             idx = np.searchsorted(all_isis, isi_list[n][i])
             summed_resps [idx] += resp_list[n][i] #k_i
             resp_counter[idx] += 1 #n_i
@@ -127,21 +124,21 @@ def plot_one_bootstrap(mu_hat, sigma_hat, ISIs):
 def bootstrap (mu, sigma, no_bootstraps, test_results : TestResults):
     no_trials = test_results.no_trials
     ISIs = test_results.all_ISIs
-    ISI_list = [ISIs.copy() for _ in range(no_trials)] #TODO does this work for random trials?
-    bootstrap_results = TestResults("Bootstrap", test_results.staircase, test_results.left_eye, [], test_results.ISIs)
-    no_ISIs = len(ISIs)
+    p = []
+    num_ISIs_per_trial = np.zeros(no_trials)
+    for m in range (no_trials):
+        num_ISIs_per_trial[m] = len(test_results.ISIs[m])
+        p.append(norm.cdf(test_results.ISIs[m], loc=mu, scale=sigma))
 
     resp_list: list[np.ndarray] = []
     bootstrap_rows = []
-    p = norm.cdf(ISIs, loc=mu, scale=sigma)#vectorised
 
     for i in range (no_bootstraps): # do this 2000 times, once per bootstrap
-        resp_list: list[np.ndarray] = [] 
+        resp_list = []
 
         for m in range (no_trials):#generate no_trials random trials, do this 8000 times (once per trial per bootstrap)
         #to find TDT, need to do each trial and assess
-
-            resp_list.append (np.random.rand (no_ISIs) < p )#random Bernouilli trials using probabilities from the Gaussian fit
+            resp_list.append(np.array([np.random.rand() < prob for prob in p[m]])) #random Bernouilli trials using probabilities from the Gaussian fit
 
 
         avg_resps, summed_resps, resp_counter, TDT = analyse_TDTs (TestResults("Bootstrap", test_results.staircase, test_results.left_eye, resp_list , test_results.ISIs))#Fit a Gaussian to this bootstrapped trial
