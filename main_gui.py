@@ -5,7 +5,7 @@ for Reilly Lab TDT Analysis
 Author: Spencer O'Connell
 
 
-For use with the TDT Quest App v0.94
+For use with the TDT Quest App v1.0
 
 """""
 ##TODO add variations to title
@@ -236,3 +236,5 @@ def build_gui():
 if __name__ == "__main__":
     app = build_gui()
     app.mainloop()
+
+
