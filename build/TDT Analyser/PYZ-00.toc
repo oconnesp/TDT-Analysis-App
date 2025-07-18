@@ -619,6 +619,56 @@
   ('bisect', 'C:\\Program Files\\Python313\\Lib\\bisect.py', 'PYMODULE'),
   ('bz2', 'C:\\Program Files\\Python313\\Lib\\bz2.py', 'PYMODULE'),
   ('calendar', 'C:\\Program Files\\Python313\\Lib\\calendar.py', 'PYMODULE'),
+  ('certifi',
+   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
+   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
+   'App\\.venv\\Lib\\site-packages\\certifi\\__init__.py',
+   'PYMODULE'),
+  ('certifi.core',
+   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
+   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
+   'App\\.venv\\Lib\\site-packages\\certifi\\core.py',
+   'PYMODULE'),
+  ('charset_normalizer',
+   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
+   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
+   'App\\.venv\\Lib\\site-packages\\charset_normalizer\\__init__.py',
+   'PYMODULE'),
+  ('charset_normalizer.api',
+   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
+   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
+   'App\\.venv\\Lib\\site-packages\\charset_normalizer\\api.py',
+   'PYMODULE'),
+  ('charset_normalizer.cd',
+   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
+   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
+   'App\\.venv\\Lib\\site-packages\\charset_normalizer\\cd.py',
+   'PYMODULE'),
+  ('charset_normalizer.constant',
+   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
+   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
+   'App\\.venv\\Lib\\site-packages\\charset_normalizer\\constant.py',
+   'PYMODULE'),
+  ('charset_normalizer.legacy',
+   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
+   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
+   'App\\.venv\\Lib\\site-packages\\charset_normalizer\\legacy.py',
+   'PYMODULE'),
+  ('charset_normalizer.models',
+   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
+   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
+   'App\\.venv\\Lib\\site-packages\\charset_normalizer\\models.py',
+   'PYMODULE'),
+  ('charset_normalizer.utils',
+   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
+   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
+   'App\\.venv\\Lib\\site-packages\\charset_normalizer\\utils.py',
+   'PYMODULE'),
+  ('charset_normalizer.version',
+   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
+   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
+   'App\\.venv\\Lib\\site-packages\\charset_normalizer\\version.py',
+   'PYMODULE'),
   ('cmd', 'C:\\Program Files\\Python313\\Lib\\cmd.py', 'PYMODULE'),
   ('code', 'C:\\Program Files\\Python313\\Lib\\code.py', 'PYMODULE'),
   ('codeop', 'C:\\Program Files\\Python313\\Lib\\codeop.py', 'PYMODULE'),
@@ -3867,6 +3917,41 @@
    'PYMODULE'),
   ('pkgutil', 'C:\\Program Files\\Python313\\Lib\\pkgutil.py', 'PYMODULE'),
   ('platform', 'C:\\Program Files\\Python313\\Lib\\platform.py', 'PYMODULE'),
+  ('platformdirs',
+   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
+   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
+   'App\\.venv\\Lib\\site-packages\\platformdirs\\__init__.py',
+   'PYMODULE'),
+  ('platformdirs.android',
+   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
+   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
+   'App\\.venv\\Lib\\site-packages\\platformdirs\\android.py',
+   'PYMODULE'),
+  ('platformdirs.api',
+   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
+   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
+   'App\\.venv\\Lib\\site-packages\\platformdirs\\api.py',
+   'PYMODULE'),
+  ('platformdirs.macos',
+   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
+   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
+   'App\\.venv\\Lib\\site-packages\\platformdirs\\macos.py',
+   'PYMODULE'),
+  ('platformdirs.unix',
+   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
+   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
+   'App\\.venv\\Lib\\site-packages\\platformdirs\\unix.py',
+   'PYMODULE'),
+  ('platformdirs.version',
+   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
+   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
+   'App\\.venv\\Lib\\site-packages\\platformdirs\\version.py',
+   'PYMODULE'),
+  ('platformdirs.windows',
+   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
+   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
+   'App\\.venv\\Lib\\site-packages\\platformdirs\\windows.py',
+   'PYMODULE'),
   ('plistlib', 'C:\\Program Files\\Python313\\Lib\\plistlib.py', 'PYMODULE'),
   ('pprint', 'C:\\Program Files\\Python313\\Lib\\pprint.py', 'PYMODULE'),
   ('py_compile',
@@ -6463,41 +6548,6 @@
    'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
    'App\\.venv\\Lib\\site-packages\\setuptools\\_vendor\\packaging\\version.py',
    'PYMODULE'),
-  ('setuptools._vendor.platformdirs',
-   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
-   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
-   'App\\.venv\\Lib\\site-packages\\setuptools\\_vendor\\platformdirs\\__init__.py',
-   'PYMODULE'),
-  ('setuptools._vendor.platformdirs.android',
-   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
-   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
-   'App\\.venv\\Lib\\site-packages\\setuptools\\_vendor\\platformdirs\\android.py',
-   'PYMODULE'),
-  ('setuptools._vendor.platformdirs.api',
-   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
-   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
-   'App\\.venv\\Lib\\site-packages\\setuptools\\_vendor\\platformdirs\\api.py',
-   'PYMODULE'),
-  ('setuptools._vendor.platformdirs.macos',
-   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
-   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
-   'App\\.venv\\Lib\\site-packages\\setuptools\\_vendor\\platformdirs\\macos.py',
-   'PYMODULE'),
-  ('setuptools._vendor.platformdirs.unix',
-   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
-   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
-   'App\\.venv\\Lib\\site-packages\\setuptools\\_vendor\\platformdirs\\unix.py',
-   'PYMODULE'),
-  ('setuptools._vendor.platformdirs.version',
-   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
-   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
-   'App\\.venv\\Lib\\site-packages\\setuptools\\_vendor\\platformdirs\\version.py',
-   'PYMODULE'),
-  ('setuptools._vendor.platformdirs.windows',
-   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
-   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
-   'App\\.venv\\Lib\\site-packages\\setuptools\\_vendor\\platformdirs\\windows.py',
-   'PYMODULE'),
   ('setuptools._vendor.tomli',
    'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
    'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
@@ -6517,11 +6567,6 @@
    'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
    'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
    'App\\.venv\\Lib\\site-packages\\setuptools\\_vendor\\tomli\\_types.py',
-   'PYMODULE'),
-  ('setuptools._vendor.typing_extensions',
-   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
-   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
-   'App\\.venv\\Lib\\site-packages\\setuptools\\_vendor\\typing_extensions.py',
    'PYMODULE'),
   ('setuptools._vendor.wheel',
    'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
@@ -6957,6 +7002,11 @@
    'App\\txt_parsing.py',
    'PYMODULE'),
   ('typing', 'C:\\Program Files\\Python313\\Lib\\typing.py', 'PYMODULE'),
+  ('typing_extensions',
+   'c:\\Users\\OCONNESP\\OneDrive - Trinity College '
+   'Dublin\\College\\College\\Year 3\\Reilly Lab\\TDT Analysis '
+   'App\\.venv\\Lib\\site-packages\\typing_extensions.py',
+   'PYMODULE'),
   ('unittest',
    'C:\\Program Files\\Python313\\Lib\\unittest\\__init__.py',
    'PYMODULE'),
