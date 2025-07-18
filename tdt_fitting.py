@@ -133,7 +133,9 @@ def bootstrap (mu, sigma, no_bootstraps, test_results : TestResults):
 
     resp_list: list[np.ndarray] = []
     bootstrap_rows = []
-    p = norm.cdf(ISIs, loc=mu, scale=sigma)#vectorised
+    p = []
+    for i in range(no_trials):
+        p.append (norm.cdf(test_results.ISIs[i], loc=mu, scale=sigma))#vectorised
 
     for i in range (no_bootstraps): # do this 2000 times, once per bootstrap
         resp_list: list[np.ndarray] = [] 
@@ -141,7 +143,7 @@ def bootstrap (mu, sigma, no_bootstraps, test_results : TestResults):
         for m in range (no_trials):#generate no_trials random trials, do this 8000 times (once per trial per bootstrap)
         #to find TDT, need to do each trial and assess
 
-            resp_list.append (np.random.rand (no_ISIs) < p )#random Bernouilli trials using probabilities from the Gaussian fit
+            resp_list.append (np.random.rand (len(test_results.ISIs[m])) < p[m] )#random Bernouilli trials using probabilities from the Gaussian fit
 
 
         avg_resps, summed_resps, resp_counter, TDT = analyse_TDTs (TestResults("Bootstrap", test_results.staircase, test_results.left_eye, resp_list , test_results.ISIs))#Fit a Gaussian to this bootstrapped trial

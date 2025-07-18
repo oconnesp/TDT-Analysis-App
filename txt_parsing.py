@@ -104,11 +104,22 @@ def extract_from_txt (filename, patient_ID, flags : list[bool]):#flags is LEye,R
         resp_array = np.array([int(x) for x in m_resp.group(1).split(',')])
 
         isi_array  = np.array([float(x) for x in m_tdt.group(1).split(',')]) * 1000
-        if staircase == False:
-            isi_array.sort()
+
         
         resp_array[resp_array == 2] = 1   #2 signifies did not respond, which signifies the trial finished necause the TDT had been found. Can assume the rest of the ISIs are 1s as they are
         #greater than the TDT
+
+        # For non-staircase (randomized) tests, sort ISI and response arrays by ISI value;
+        # staircase tests are already ordered by ISI, so no sorting is needed.
+        if not staircase:
+            # Compute the indices that would sort ISIs
+            idx = np.argsort(isi_array)
+
+            # Reorder both arrays in one shot
+            isi_array  = isi_array[idx]
+            resp_array = resp_array[idx]
+
+
 
         if len(isi_array) > len(resp_array):
             resp_array = np.concatenate([resp_array, np.ones(len(isi_array) - len(resp_array), dtype=resp_array.dtype)])
