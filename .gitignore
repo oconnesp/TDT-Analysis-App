@@ -1,0 +1,13 @@
+# PyInstaller build output
+build/
+dist/
+*.exe
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Analysis output written by the app
+TDT results/

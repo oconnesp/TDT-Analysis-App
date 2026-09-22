@@ -1,75 +1,48 @@
-TDT Patient Analysis App
+# TDT Analysis App
 
-Author: Spencer O’Connell (Reilly Lab)
+A desktop app for analysing Temporal Discrimination Threshold (TDT) results collected with the TDT Quest Android app (v0.94), written for the Reilly Lab at Trinity College Dublin.
 
-This application provides a graphical interface to analyze Temporal Discrimination Threshold (TDT) results exported from the TDT Quest Android app. It supports both staircase and random paradigms, left/right eye data selection, and bootstrap-based confidence intervals for PSE, JND, and TDT estimates.
+TDT is the shortest interval at which two sequential stimuli are perceived as separate rather than simultaneous, and it is used as an endophenotype marker in adult-onset dystonia. The Quest headset writes every session to a plain-text log; this app parses that log for a given participant, fits a psychometric function to their responses, and reports the threshold with bootstrap confidence intervals.
 
-Key features:
+## What it does
 
-Automatic parsing of Results.txt files from USB sticks or manual selection
+- Finds `Results.txt` automatically on a mounted USB drive (the headset's export), or falls back to a file picker.
+- Filters trials by eye (left/right) and paradigm (staircase/random), skipping practice runs and any test flagged `Include test in analysis: NO`.
+- Estimates the TDT per trial as the first of three consecutive "different" responses, taking the median per eye.
+- Fits a cumulative Gaussian by maximum likelihood (binomial log-likelihood, L-BFGS-B) to recover PSE (mean) and JND (standard deviation).
+- Resamples 2000 parametric bootstrap replicates to get 95% confidence intervals on PSE, JND and TDT by the quantile method recommended in Wichmann & Hill (2001).
+- Plots the fitted curve over the bootstrap envelope and exports the figure to a timestamped folder.
 
-Flag-based trial filtering (left eye/right eye, staircase/random)
+## Files
 
-Robust fitting to Gaussian psychometric function
+- **`main_gui.py`** — Tkinter front end and the entry point. Handles participant ID entry, the trial-selection checkboxes, USB discovery of the results file, and export of the summary figure.
+- **`txt_parsing.py`** — Parses the Quest log. Splits it into per-test blocks, matches the participant, applies the eye/paradigm filters, and returns a `TestResults` object of per-trial ISI and response arrays. Also strips the zero-width characters the Quest app appends to participant IDs.
+- **`tdt_fitting.py`** — The analysis itself: threshold extraction, the negative log-likelihood and cumulative-Gaussian fit, the bootstrap, and the plotting routines.
+- **`analyse_head_movements.py`** — Optional extra: parses quaternion head-rotation data from the log and computes the change in yaw/pitch/roll between the start and end of each trial, to check whether the participant's head drifted during a test.
+- **`TDT Analyser.spec`** — PyInstaller spec used to build the standalone Windows executable.
+- **`examples/Results.txt`** — A sample Quest export, kept so the parser can be tried without a headset.
 
-Bootstrap resampling for 95% confidence intervals
+## Running it
 
-Interactive plotting of psychometric curves
-
-Easy export of analysis results and figures
-
-
-Requirements
-
-Python 3.9+
-Virtual environment (recommended)
-
-Dependencies listed in requirements.txt:
-numpy
-pandas
-scipy
-matplotlib
-scikits.bootstrap
-tkinter (standard library)
-
-Usage
-
-Run the GUI
+```bash
+python -m venv .venv
+.venv\Scripts\activate        # Windows
+pip install -r requirements.txt
 python main_gui.py
-In the application window:
-Enter Patient ID exactly as it appears in the Results.txt file.
-Select eye(s) and paradigm(s) using the checkboxes.
-Click Run Analysis to parse data, fit the psychometric function, and display results.
-Click Export Results to save summary and plots into a timestamped folder under TDT results/.
+```
 
-Building a Standalone Executable
+Enter the participant ID exactly as it appears in `Results.txt`, tick at least one eye and one paradigm, then **Run Analysis**. **Export Results** writes the plot to `TDT results/<ID> <timestamp>/`.
 
-To distribute the app without requiring Python:
-Ensure the .ico file is present in the project root.
-From the project folder (with virtual environment activated), run:
+## Building the standalone executable
 
-pyinstaller \
-  --noconfirm \
-  --onefile \
-  --windowed \
-  --name "TDT Analyser" \
-  --add-data "Calculator.ico;." \
-  main_gui.py
+To distribute the app to machines without Python:
 
-The standalone executable will be in dist/TDT Analyser.exe.
+```bash
+pyinstaller --noconfirm "TDT Analyser.spec"
+```
 
-Project Structure
+The executable is written to `dist/TDT Analyser.exe`. `Calculator.ico` must be present in the project root — it is bundled as data and used as the window and application icon.
 
-tdt-analyser/
-├── main_gui.py         # Main Tkinter application
-├── tdt_fitting.py      # Analysis and fitting routines
-├── txt_parsing.py      # Functions for extracting test data
-├── Calculator.ico      # Application icon for builds
-├── requirements.txt    # Python dependencies
-├── dist/               # Output folder for PyInstaller builds
-├── build/              # Temporary build artifacts
-└── README.md           # This documentation
+## Author
 
-
-
-I apologise for the messiness of the files, I am new to GitHub
+Spencer O'Connell, Reilly Lab, Trinity College Dublin.
